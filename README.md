@@ -2,7 +2,7 @@
 
 # Background
 
-Below I will be discussing the particle tracking project that was being done over a 10-week course at Caltech summer 2023. I will give insight onto any results that I have gotten as well as provide code to help future readers of this document. The data of the grains and particles that will be discussed are available due to the work of Kim and Kyd who conducted particle experiments. Some important information to know is that GSD stands for grain size distribution and represents the sizes of the grains at the beginning of the experiments, while PSD is the particle size distribution and represents the particle sizes throughout the experiment.
+Below I will be discussing the particle tracking project that was being done over a 10-week course at Caltech summer 2023. The main goal of this project is to track particles to figure out their velocity and size. I will give insight onto any results that I have gotten as well as provide code to help future readers of this document. The data of the grains and particles that will be discussed are available due to the work of Kim and Kyd who conducted particle experiments. Some important information to know is that GSD stands for grain size distribution and represents the sizes of the grains at the beginning of the experiments, while PSD is the particle size distribution and represents the particle sizes throughout the experiment.
 
 # Imaging Data 
 
@@ -64,20 +64,21 @@ The table that I will be discussing is a file that I created to list the many im
 **FURTHER INFORMATION CAN BE FOUND IN THE table_creator.py FILE**
 
 ```bash
+#This information is later exported into a seperate CSV file
 table = {}
 table['sediment'] = []
 table['class number'] = []
 table['D Lower'] = []
 table['D Upper'] = []
 table['D Center'] = []
-table['Volume Fraction'] = []
+table['Volume Fraction'] = [] #these all init the table
 index_number = 1
-for i in range(3):
+for i in range(3): #3 because there are three starting grain types
     class_number = 1
     curr_grain_type = grain_types_names[i]
-    curr_grain_vals = grain_types[curr_grain_type]
+    curr_grain_vals = grain_types[curr_grain_type] #getting the grain name and values associated
     for j in range(len(curr_grain_vals) - 1): #n-1 iterations as we are taking the class
-        table['sediment'].append(curr_grain_type)
+        table['sediment'].append(curr_grain_type) #this now the math done to get the wanted values
         table['class number'].append(class_number)
         table['D Lower'].append(grain_size[j])
         table['D Upper'].append(grain_size[j + 1])
@@ -88,7 +89,156 @@ for i in range(3):
         index_number += 1
 ```
 
-# PDF Distribution
+Using the information in the table, we can nonow find values like the volume fraction for each of the grains.
 
-The PDF distribution code that I will show displays the PDF of the GSD versus the PSD data.
+```bash
+for i in range(3): #this is to get lists of the different vol_fracs
+    name = grain_types_names[i]
+    vol_fractions_grains[name] = []
+    for j in range(num_of_sediments):
+        vol_fractions_grains[name].append(vol_frac[table_counter])
+        table_counter += 1
+```
 
+Find the combined GSD value for all of the sediments in the orignal GSD is a vlue of interest as this helps to give insight into flocculation. Below is the code on how using the volume fractions for each of the original sediment types and the information from the table can lead to this.
+
+```bash
+x_axis = np.arange(num_of_sediments)
+y_axis_combined_GSD = []
+for i in range(num_of_sediments):
+    val_of_y = (proportion_s * vol_fractions_grains[grain_types_names[0]][i]) + proportion_k * vol_fractions_grains[grain_types_names[1]][i] + proportion_m * vol_fractions_grains[grain_types_names[2]][i]
+    num = val_of_y / (math.log(table['D Upper'][i]) - math.log(table['D Lower'][i]))
+    y_axis_combined_GSD.append(num)
+total_GSD_value = sum(y_axis_combined_GSD)
+for i in range(num_of_sediments):
+    normalized_GSD = y_axis_combined_GSD[i] / total_GSD_value
+    y_axis_combined_GSD[i] = normalized_GSD
+```
+
+Plotting the GSD results 
+
+```bash
+plt.xlabel('Grain Size (um)')
+plt.ylabel('PDF')
+plt.title('Different Grain Size Distribution Plot')
+plt.xscale("log")
+plt.plot(x_axis, y_axis_combined_GSD, label = "Combined GSD")
+```
+
+Exporting the results into a CSV file
+
+```bash
+keys = list(table.keys())
+list_of_GSD_dict = []
+for i in range(len(sediments)):
+    new_dict = {}
+    new_dict[keys[0]] = table[keys[0]][i]
+    new_dict[keys[1]] = table[keys[1]][i]
+    new_dict[keys[2]] = table[keys[2]][i]
+    new_dict[keys[3]] = table[keys[3]][i]
+    new_dict[keys[4]] = table[keys[4]][i]
+    new_dict[keys[5]] = table[keys[5]][i]
+    list_of_GSD_dict.append(new_dict)
+
+
+with open('table_results.csv', 'w', newline = '') as csvfile:
+    writer = csv.DictWriter(csvfile, fieldnames = keys)
+    writer.writeheader()
+    writer.writerows(list_of_GSD_dict)
+```
+
+Now that we have found the combined GSD values, the code below is plotting the individual GSD values.
+
+```bash
+individual_sediment_pdf = {}
+for name in list(vol_fractions_grains.keys()):
+   individual_sediment_pdf[name] = []
+   proportion = dict_of_proportions[name]
+   for i in range(len(vol_fractions_grains[name])):
+       f = vol_fractions_grains[name][i]
+       num = f / (math.log(table['D Upper'][i]) - math.log(table['D Lower'][i]))
+       individual_sediment_pdf[name].append(num)
+   sum_of_vals = sum(individual_sediment_pdf[name])
+   for i in range(len(individual_sediment_pdf[name])):
+       individual_sediment_pdf[name][i] = individual_sediment_pdf[name][i] / sum_of_vals
+
+x_axis = np.arange(num_of_sediments)
+for name_sediment, y_axis in individual_sediment_pdf.items():
+    plt.plot(x_axis, y_axis, label = "GSD of " + str(name_sediment))
+
+plt.legend()
+plt.show()
+```
+
+# CDF Distribution
+The CDF distribution code that I will show displays the CDF of the GSD versus the PSD data. The CDF is important as this will help us understand whether flocculation is occuring or not.
+
+```bash
+plt.close()
+df = pd.read_csv('results.csv')
+diameters = list(df.loc[:,"EquivDiameter"])
+diameters = [float(i) * 0.81 for i in diameters]
+CDF_for_GSD = []
+for i in range(len(y_axis_combined_GSD)):
+    CDF_for_GSD.append(sum(y_axis_combined_GSD[0:i]))
+#CDF OF PSD
+CDF_for_PSD = []
+diameters.sort()
+size_data = len(diameters)
+np_diameters = np.array(diameters)
+for i in diameters:
+    temp = np_diameters[np_diameters <= i]
+    # fraction of that value with respect to the size of the x_values
+    value = temp.size / size_data
+    # pushing the value in the y_values
+    if value not in CDF_for_PSD:
+        CDF_for_PSD.append(value)
+```
+
+Plotting the results of the CDF.
+
+```bash
+x_axis_1 = list(np.arange(len(CDF_for_PSD)))
+x_axis_2 = list(np.arange(len(CDF_for_GSD)))
+plt.plot(x_axis_1, CDF_for_PSD, label = "PSD")
+plt.plot(x_axis_2, CDF_for_GSD, label = "GSD")
+plt.xscale("log")
+plt.title('PSD vs GSD')
+plt.xlabel('Diameter (um)')
+plt.ylabel('CDF')
+plt.legend()
+plt.show()
+```
+
+Below is a lien of code used to gain information regarding the PSD. You will find the PSD plotted in a histogram while the GSD in a line graph. That is because the PSD data is finite, so the information must be represented in a finite way.
+
+```bash
+(n, bins, patches) = plt.hist(medians_sample_1, density = True, bins= 15, label='PSD') #used to get info about PSD
+```
+
+This code below is used normalize the GSD and to cutoff values that are lower than the smallest PSD value. The reason the cutoff occurs is because if there is a GSD value that is lower than the lowest PSD value, then that information wont be able to tell us trends on flocculation, so taking it away from our distribution is the smartest thing to do.
+
+```bash
+min_diameter = min(medians_sample_1)
+y_axis_GSD = []
+x_axis_2 = []
+curr_diameters = table['D Center'][:100]
+for i in range(len(curr_diameters)):
+    if curr_diameters[i] >= min_diameter:
+        y_axis_GSD.append(y_axis_combined_GSD[i])
+        x_axis_2.append(curr_diameters[i])
+
+sum = sum(y_axis_GSD)
+for i in range(len(y_axis_GSD)):
+    y_axis_GSD[i] = y_axis_GSD[i] / sum
+
+plt.plot(x_axis_2, y_axis_GSD, label = "GSD")
+
+plt.legend(loc='upper right')
+plt.xscale("log")
+plt.title('PSD vs GSD')
+plt.xlabel('Diameter (um)')
+plt.ylabel('PDF')
+plt.legend()
+plt.show()
+```
