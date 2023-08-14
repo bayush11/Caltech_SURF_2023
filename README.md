@@ -6,7 +6,7 @@ Below I will be discussing the particle tracking project that was being done ove
 
 # Imaging Data 
 
-The imaging data was processed through the Keyvani and Strom (2013) workflow. This is the paper link: https://doi.org/10.1016/j.cageo.2012.08.018. I have additionally linked
+The imaging data was processed through the Keyvani and Strom (2013) workflow. This is the paper link: https://doi.org/10.1016/j.cageo.2012.08.018.
 
 Below are the different phasese that the images have gone through in the Keyvani and Strom (2013) workflow. When processing a time-series, one should get folders of these three image types plus a binarized labeled image.
 
