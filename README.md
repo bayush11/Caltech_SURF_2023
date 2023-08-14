@@ -8,7 +8,7 @@ Below I will be discussing the particle tracking project that was being done ove
 
 The imaging data was processed through the Keyvani and Strom (2013) workflow. This is the paper link: https://doi.org/10.1016/j.cageo.2012.08.018.
 
-Below are the different phasese that the images have gone through in the Keyvani and Strom (2013) workflow. When processing a time-series, one should get folders of these three image types plus a binarized labeled image.
+Below are the different phases that the images have gone through in the Keyvani and Strom (2013) workflow. When processing a time-series, one should get folders of these three image types plus a binarized labeled image.
 
 # Greyscale Image
 ![frame_0001](https://github.com/bayush11/Caltech_SURF_2023/assets/70395352/2f34e207-d9e8-4aa6-b74f-c4baba509813)
@@ -26,7 +26,7 @@ Before going into the code, this code snippet below shows how to convert from th
 for i in range(len(imgNumPlt)):
     imgNumPlt[i] *= 60 
 ```
-Below is the code that plots the frame by the diameter of the flocs. When using the Keyvani and Strom (2013) workflow, one will recieved a csv file that has the diameters of every particle tracked in the binarized images. This code will take that csv and find the median diameter per frame. **THIS IS IN THE MAIN.PY FILE.**
+Below is the code that plots the frame by the diameter of the flocs. When using the Keyvani and Strom (2013) workflow, one will receive a CSV file that has the diameters of every particle tracked in the binarized images. This code will take that CSV and find the median diameter per frame. **THIS IS IN THE MAIN.PY FILE.**
 
 This code snippet helps to get the number of frames there are in the csv file.
 ```bash
@@ -57,6 +57,21 @@ axis[1].plot(imgNumPlt, medians_sample_1)
 Results
 ![median_img](https://github.com/bayush11/Caltech_SURF_2023/assets/70395352/5f6d0a59-2a40-47d4-906e-307c1f5e864c)
 
+The code below describes how to get the total number of particles per frame. This trend can potentially suggest flocculation as if the number of particles is decreasing, then that shows particles are combining, therefore reducing the total number of them overall and showing flocculation.
+
+```bash
+df = pd.read_csv('results.csv')
+imgNum = list(df.loc[:,"file"])
+total_num_particles = {}
+list_of_elements = []
+for i in imgNum:
+    if i not in list_of_elements:
+        list_of_elements.append(i)
+for i in list_of_elements:
+    total_num_particles[i] = imgNum.count(i)
+```
+    
+
 # Table Creation
 
 The table that I will be discussing is a file that I created to list the many important features regarding grain size distribution information. This table will be used throughout the rest of the code as the information is relevant.
@@ -64,7 +79,7 @@ The table that I will be discussing is a file that I created to list the many im
 **FURTHER INFORMATION CAN BE FOUND IN THE table_creator.py FILE**
 
 ```bash
-#This information is later exported into a seperate CSV file
+#This information is later exported into a separate CSV file
 table = {}
 table['sediment'] = []
 table['class number'] = []
@@ -89,7 +104,7 @@ for i in range(3): #3 because there are three starting grain types
         index_number += 1
 ```
 
-Using the information in the table, we can nonow find values like the volume fraction for each of the grains.
+Using the information in the table, we can now find values like the volume fraction for each of the grains.
 
 ```bash
 for i in range(3): #this is to get lists of the different vol_fracs
@@ -175,7 +190,7 @@ Results of the combined vs individual GSD
 ![COMBINED_INDIVIDUAL_GSD](https://github.com/bayush11/Caltech_SURF_2023/assets/70395352/b715e0b2-5827-41b4-89c1-f89691841e7b)
 
 # CDF Distribution
-The CDF distribution code that I will show displays the CDF of the GSD versus the PSD data. The CDF is important as this will help us understand whether flocculation is occuring or not.
+The CDF distribution code that I will show displays the CDF of the GSD versus the PSD data. The CDF is important as this will help us understand whether flocculation is occurring or not.
 
 ```bash
 plt.close()
@@ -218,15 +233,15 @@ Results of the CDF plotted between the PSD and the GSD.
 
 ![CDF](https://github.com/bayush11/Caltech_SURF_2023/assets/70395352/6418c8b2-ee1e-4351-a011-ab2019e0600e)
 
-Below is a line of code used to gain information regarding the PSD. You will find the PSD plotted in a histogram while the GSD in a line graph. That is because the PSD data is finite, so the information must be represented in a finite way.
+Below is a line of code used to gain information regarding the PSD. You will find the PSD plotted in a histogram while the GSD is in a line graph. That is because the PSD data is finite, so the information must be represented in a finite way.
 
 ```bash
 (n, bins, patches) = plt.hist(medians_sample_1, density = True, bins= 15, label='PSD') #used to get info about PSD
 ```
 
-This code below is used to plot the PDF of the GSD and PSD distributions.
+The code below is used to plot the PDF of the GSD and PSD distributions.
 
-Within this code, the GSD is normalized and values that are lower than the smallest PSD value are cutoff. The reason the cutoff occurs is because if there is a GSD value that is lower than the lowest PSD value, then that information wont be able to tell us trends on flocculation, so taking it away from our distribution is the smartest thing to do.
+Within this code, the GSD is normalized, and values that are lower than the smallest PSD value are cut off. The reason the cutoff occurs is that if there is a GSD value that is lower than the lowest PSD value, then that information won't be able to tell us trends on flocculation, so taking it away from our distribution is the smartest thing to do.
 
 ```bash
 min_diameter = min(medians_sample_1)
@@ -257,7 +272,7 @@ Results of the PDF of the PSD vs GSD.
 
 ![PDF](https://github.com/bayush11/Caltech_SURF_2023/assets/70395352/81c9ff6c-4b5e-46f6-b908-e61462fd03a4)
 
-Conducting statistical tests allow us to gather information that can indirectly help us see flocculation patterns. The line below helps to complete a Kolmogorov–Smirnov test and compares the PSD and GSD data.
+Conducting statistical tests allows us to gather information that can indirectly help us see flocculation patterns. The line below helps to complete a Kolmogorov–Smirnov test and compares the PSD and GSD data.
 
 ```bash
 print(ks_2samp(medians_sample_1, y_axis_GSD))
