@@ -288,22 +288,22 @@ print(ks_2samp(medians_sample_1, y_axis_GSD))
 
 # Machine Learning and Tracking
 
-Here I will provide the links and information that I found during the machine learning portion of my project
+Here I will provide the links and information that I found during the machine-learning portion of my project
 
-Firstly, here are the links that I have primiarly been using for my object tracking.
+Firstly, here are the links that I have primarily been using for my object tracking.
 
 1. Video that describes how to track objects: https://www.youtube.com/watch?v=FuvQ8Melz1o
-2. Video that describes how to create custom object detector (important as this detector will be used to track custom objects): https://www.youtube.com/watch?v=nOIVxi5yurE
-3. Video that describes how to create custom dataset and train custom detection model: https://www.youtube.com/watch?v=mmj3nxGT2YQ
+2. Video that describes how to create a custom object detector (important as this detector will be used to track custom objects): https://www.youtube.com/watch?v=nOIVxi5yurE
+3. Video that describes how to create the custom dataset and train a custom detection model: https://www.youtube.com/watch?v=mmj3nxGT2YQ
 
-All of these videos have links to the githubs that need to be accessed in order to complete the tracking.
+All of these videos have links to GitHub that need to be accessed in order to complete the tracking.
 
 # Training
 
-The tracking can be calssfiied into two sets: training the machine learning model and then using the trained model to track/detect objects. The link that I gave that shows how to make your own data/model will provide you links to not only make your own custom dataset, but also how to train your machine learning model. Use this to create your model properly.
+The tracking can be classified into two sets: training the machine learning model and then using the trained model to track/detect objects. The link that I gave that shows how to make your own data/model will provide you links to not only make your own custom dataset but also how to train your machine learning model. Use this to create your model properly.
 
-**NOTE: The training is done in google colab. After a hour or two, computing power will run out and ask you to buy stronger power for 10$ a month. DONT DO THIS. Instead, switch between google accounts and keep running your model through there. At one point you will exhaust your resouces for the day. The computing power resets the next day**
+**NOTE: The training is done in google colab. After an hour or two, computing power will run out and ask you to buy stronger power for 10$ a month. DON'T DO THIS. Instead, switch between Google accounts and keep running your model through there. At one point you will exhaust your resources for the day. The computing power resets the next day**
 
 # Detecting and Tracking
 
-After your model is able to detect objects properly, use the first two links provided to use your trained model to track and train objects.
+After your model is able to detect objects properly, use the first two links provided to use your trained model to track and train objects. Some area for potential error is that you are inputting the wrong number of classes or that you are using the wrong model. Please look up your errors online for this as there are plenty of resources that helped me to solve my issues.
