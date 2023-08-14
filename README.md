@@ -274,6 +274,12 @@ Results of the PDF of the PSD vs GSD.
 
 Conducting statistical tests allows us to gather information that can indirectly help us see flocculation patterns. The line below helps to complete a Kolmogorov–Smirnov test and compares the PSD and GSD data.
 
+# TODO
+
+Make sure to fully explain the main.py file (aka the 16, 50, 80%)
+
+Take out any unnecessary code
+
 ```bash
 print(ks_2samp(medians_sample_1, y_axis_GSD))
 ```
