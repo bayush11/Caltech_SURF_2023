@@ -19,10 +19,21 @@ Below are the different phasese that the images have gone through in the Keyvani
 
 # Frame vs Diameter Code
 
-***Before going into the code, this code snippet below shows how to convert from the frame number to time. The FPS is 60, so this is just a multiplication factor that is needed.***
+**Before going into the code, this code snippet below shows how to convert from the frame number to time. The FPS is 60, so this is just a multiplication factor that is needed.**
+
+```bash
+# Tensorflow CPU
+for i in range(len(imgNumPlt)):
+    imgNumPlt[i] *= 60 
+
+# Tensorflow GPU
+conda env create -f conda-gpu.yml
+conda activate yolov4-gpu
+```
+
 '''
 for i in range(len(imgNumPlt)):
-    imgNumPlt[i] *= 60 #60 FPS, converting to time
+    imgNumPlt[i] *= 60 
 '''
 Below is the code that plots the frame by the diameter of the flocs. When using the Keyvani and Strom (2013) workflow, one will recieved a csv file that has the diameters of every particle tracked in the binarized images. This code will take that csv and find the median diameter per frame. **THIS IS IN THE MAIN.PY FILE.**
 
