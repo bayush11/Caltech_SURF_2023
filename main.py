@@ -57,66 +57,6 @@ samples_84th_percent.append(np.quantile(lister, 0.84))
 samples_16th_percent.append(np.quantile(lister, 0.16))
 
 imgNumPlt = np.arange(len(medians_sample_1))
-############################
-#PLOTTING CDF OF DISTRIBUTION
-CDF_1 = []
-CDF_2 = []
-medians_sample_1.sort()
-medians_sample_2.sort()
-
-size_1 = len(medians_sample_1)
-size_2 = len(medians_sample_2)
-np_size_1 = np.array(medians_sample_1)
-np_size_2 = np.array(medians_sample_2)
-
-for i in np_size_1:
-    temp1 = np_size_1[np_size_1 <= i]
-    value = temp1.size / size_1
-    # pushing the value in the y_values
-    if value not in CDF_1:
-        CDF_1.append(value)
-
-for i in np_size_2:
-    temp2 = np_size_2[np_size_2 <= i]
-    value = temp2.size / size_2
-    # pushing the value in the y_values
-    if value not in CDF_2:
-        CDF_2.append(value)
-
-x_axis_1 = np.arange(len(CDF_1))
-x_axis_2 = np.arange(len(CDF_2))
-
-plt.xlabel('Diameter (um)')
-plt.ylabel('Probability in Decimal')
-plt.title('CDF Plot')
-
-plt.plot(x_axis_1, CDF_1, label = "Sample 1")
-plt.plot(x_axis_2, CDF_2, label = "Sample 2")
-plt.legend()
-plt.xscale("log")
-plt.show()
-
-############################
-#PLOTTING PDF OF DISTRIBUTION
-plt.close()
-#TODO: CHANGE X AXIS TO DIAMETER
-
-# fig, ax = plt.subplots(figsize =(10, 7))
-# ax.hist(x_axis, bins = [0, 4, 8, 12])
-bins = [0, 4, 8]
-plt.hist(medians_sample_1, bins= 10, label='Sample 1')
-plt.hist(medians_sample_2, bins = 10, label='Sample 2')
-plt.legend(loc='upper right')
-
-print(medians_sample_1)
-print(medians_sample_2)
-
-#plt.plot(x_axis, my_list)
-plt.xlabel('Diameter (um)')
-plt.ylabel('Number of Samples')
-plt.title('PDF Plot')
-plt.xscale("log")
-plt.show()
 
 #############################
 #PLOTTING T TEST
@@ -162,8 +102,6 @@ axis[1].set_ylabel('Diameter (um)')
 #axis[1].set_xscale("log")
 
 plt.show()
-#PLOTTING PSD VS GSD
-
 
 ######################
 #PLOTTING THE 16TH, 50TH, AND 84TH PERCENTINE FOR DIAMETERS
