@@ -19,7 +19,7 @@ Below are the different phasese that the images have gone through in the Keyvani
 
 # Frame vs Diameter Code
 
-Before going into the code, this code snippet below shows how to convert from the frame number to time. The FPS is 60, so this is just a multiplication factor that is needed.
+***Before going into the code, this code snippet below shows how to convert from the frame number to time. The FPS is 60, so this is just a multiplication factor that is needed.***
 '''
 for i in range(len(imgNumPlt)):
     imgNumPlt[i] *= 60 #60 FPS, converting to time
