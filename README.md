@@ -242,3 +242,11 @@ plt.ylabel('PDF')
 plt.legend()
 plt.show()
 ```
+
+Conducting statistical tests allow us to gather information that can indirectly help us see flocculation patterns. The line below helps to complete a Kolmogorov–Smirnov test and compares the PSD and GSD data.
+
+```bash
+print(ks_2samp(medians_sample_1, y_axis_GSD))
+```
+
+**ONCE AGAIN, ALL OF THIS INFORMATION IS IN THE table_creator.py FILE**
