@@ -19,7 +19,7 @@ Below are the different phasese that the images have gone through in the Keyvani
 
 # Frame vs Diameter Code
 
-**Before going into the code, this code snippet below shows how to convert from the frame number to time. The FPS is 60, so this is just a multiplication factor that is needed.**
+Before going into the code, this code snippet below shows how to convert from the frame number to time. The FPS is 60, so this is just a multiplication factor that is needed.
 
 ```bash
 # Frame to Seconds
@@ -54,3 +54,7 @@ This is now plotting the results.
 ```bash
 axis[1].plot(imgNumPlt, medians_sample_1)
 ```
+Results
+![median_img](https://github.com/bayush11/Caltech_SURF_2023/assets/70395352/5f6d0a59-2a40-47d4-906e-307c1f5e864c)
+
+
