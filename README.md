@@ -170,6 +170,10 @@ plt.legend()
 plt.show()
 ```
 
+Results of the combined vs individual GSD
+
+![COMBINED_INDIVIDUAL_GSD](https://github.com/bayush11/Caltech_SURF_2023/assets/70395352/b715e0b2-5827-41b4-89c1-f89691841e7b)
+
 # CDF Distribution
 The CDF distribution code that I will show displays the CDF of the GSD versus the PSD data. The CDF is important as this will help us understand whether flocculation is occuring or not.
 
@@ -210,7 +214,11 @@ plt.legend()
 plt.show()
 ```
 
-Below is a lien of code used to gain information regarding the PSD. You will find the PSD plotted in a histogram while the GSD in a line graph. That is because the PSD data is finite, so the information must be represented in a finite way.
+Results of the CDF plotted between the PSD and the GSD.
+
+![CDF](https://github.com/bayush11/Caltech_SURF_2023/assets/70395352/6418c8b2-ee1e-4351-a011-ab2019e0600e)
+
+Below is a line of code used to gain information regarding the PSD. You will find the PSD plotted in a histogram while the GSD in a line graph. That is because the PSD data is finite, so the information must be represented in a finite way.
 
 ```bash
 (n, bins, patches) = plt.hist(medians_sample_1, density = True, bins= 15, label='PSD') #used to get info about PSD
