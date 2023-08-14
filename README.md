@@ -224,7 +224,9 @@ Below is a line of code used to gain information regarding the PSD. You will fin
 (n, bins, patches) = plt.hist(medians_sample_1, density = True, bins= 15, label='PSD') #used to get info about PSD
 ```
 
-This code below is used normalize the GSD and to cutoff values that are lower than the smallest PSD value. The reason the cutoff occurs is because if there is a GSD value that is lower than the lowest PSD value, then that information wont be able to tell us trends on flocculation, so taking it away from our distribution is the smartest thing to do.
+This code below is used to plot the PDF of the GSD and PSD distributions.
+
+Within this code, the GSD is normalized and values that are lower than the smallest PSD value are cutoff. The reason the cutoff occurs is because if there is a GSD value that is lower than the lowest PSD value, then that information wont be able to tell us trends on flocculation, so taking it away from our distribution is the smartest thing to do.
 
 ```bash
 min_diameter = min(medians_sample_1)
@@ -250,6 +252,10 @@ plt.ylabel('PDF')
 plt.legend()
 plt.show()
 ```
+
+Results of the PDF of the PSD vs GSD.
+
+![PDF](https://github.com/bayush11/Caltech_SURF_2023/assets/70395352/81c9ff6c-4b5e-46f6-b908-e61462fd03a4)
 
 Conducting statistical tests allow us to gather information that can indirectly help us see flocculation patterns. The line below helps to complete a Kolmogorov–Smirnov test and compares the PSD and GSD data.
 
