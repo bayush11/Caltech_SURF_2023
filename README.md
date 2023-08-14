@@ -19,5 +19,35 @@ Below are the different phasese that the images have gone through in the Keyvani
 
 # Frame vs Diameter Code
 
-Below is the code that plots the frame by the diameter of the flocs. When using the Keyvani and Strom (2013) workflow, one will recieved a csv file that has the diameters of every particle tracked in the binarized images. This code will take that csv and find the median diameter per frame.
+Before going into the code, this code snippet below shows how to convert from the frame number to time. The FPS is 60, so this is just a multiplication factor that is needed.
 
+for i in range(len(imgNumPlt)):
+    imgNumPlt[i] *= 60 #60 FPS, converting to time
+
+Below is the code that plots the frame by the diameter of the flocs. When using the Keyvani and Strom (2013) workflow, one will recieved a csv file that has the diameters of every particle tracked in the binarized images. This code will take that csv and find the median diameter per frame. **THIS IS IN THE MAIN.PY FILE.**
+
+This code snippet helps to get the number of frames there are in the csv file.
+
+for i in range(len(imgNum)):
+    if imgNum[i] not in imgNumPlt:
+        imgNumPlt.append(imgNum[i])
+
+Thsi is where using the unique numbers, one finds the median diameter per frame.
+
+for i in range(len(imgNum)):
+    if imgNum[i] == imgNumPlt[count2]:
+        lister.append(diameters[i])
+    else:
+        lister.sort()
+        median_num = statistics.median(lister)
+        medians_sample_1.append(median_num)
+        count2 += 1
+        lister.clear()
+        lister.append(diameters[i])
+
+lister.sort() #doesnt catch the last number
+medians_sample_1.append(statistics.median(lister))
+
+This is now plotting the results.
+
+axis[1].plot(imgNumPlt, medians_sample_1)
