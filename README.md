@@ -287,7 +287,7 @@ put comments at the top of each script to explain the script itself
 put comments in the lines as well 
 delete commeneted code
 add some google colab cells to the machine learning portion to explain the key points to use google colab and HOW to use google colab
-
+images have to be jpg insetad of tif PUT THIS IN IMPORTANT
 Take out any unnecessary code
 
 ```bash
