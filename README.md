@@ -283,6 +283,9 @@ Add the evniornment you are working in(google colab, python, matlab, etc).
 reorder the steps to make sense
 make sure to explain other .py files instead of mainly just table_creator.py
 explain the code better and make it more organized
+put comments at the top of each script to explain the script itself 
+put comments in the lines as well 
+delete commeneted code
 
 
 Take out any unnecessary code
