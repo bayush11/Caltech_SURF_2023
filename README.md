@@ -295,6 +295,7 @@ comment in the config files and explain what the variables are, why you might ne
 ake out any unnecessary code
 specifically describe how to train the model in the yolov4-deepsort video
 DIFFERENTIATE between tensorflow and google cloud
+link the githubs and the google colab
 
 ```bash
 print(ks_2samp(medians_sample_1, y_axis_GSD))
