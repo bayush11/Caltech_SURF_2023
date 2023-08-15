@@ -296,6 +296,11 @@ ake out any unnecessary code
 specifically describe how to train the model in the yolov4-deepsort video
 DIFFERENTIATE between tensorflow and google cloud
 link the githubs and the google colab
+talk abt info flag and how this can be used to get the settling velocity
+write documentation regarding the different detectors I have and what they essentially
+add documentation regarding the matlab parameters and discuss how I got the videos, how much of the video did you use and the sampling rate
+Number of frames used to train each of the models
+add info regarding the config files per 
 
 ```bash
 print(ks_2samp(medians_sample_1, y_axis_GSD))
