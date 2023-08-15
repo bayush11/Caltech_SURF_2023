@@ -302,6 +302,7 @@ add documentation regarding the matlab parameters and discuss how I got the vide
 Number of frames used to train each of the models
 add info regarding the config files per 
 potential ways to make model better
+write up how to run the object detector 
 
 ```bash
 print(ks_2samp(medians_sample_1, y_axis_GSD))
