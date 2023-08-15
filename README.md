@@ -282,6 +282,7 @@ Add the high level step by step for the training and testing process (e.g. do so
 Add the evniornment you are working in(google colab, python, matlab, etc).
 reorder the steps to make sense
 make sure to explain other .py files instead of mainly just table_creator.py
+explain the code better and make it more organized
 
 
 Take out any unnecessary code
