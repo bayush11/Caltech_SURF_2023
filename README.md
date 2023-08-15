@@ -305,6 +305,7 @@ Make sure to fully explain the main.py file (aka the 16, 50, 80%)
 2. The training is done in google colab. After an hour or two, computing power will run out and ask you to buy stronger power for 10$ a month. DON'T DO THIS. Instead, switch between Google accounts and keep running your model through there. At one point you will exhaust your resources for the day. The computing power resets the next day**
 3. Make sure to input images when you are saying you will
 4. I didnt expalin too much abt the labeling, is that chill
+5. When talking about the labeling, you dont every discuss how YOU DID IT. TALK ABT THAT.
 
 ```bash
 print(ks_2samp(medians_sample_1, y_axis_GSD))
@@ -317,6 +318,8 @@ print(ks_2samp(medians_sample_1, y_axis_GSD))
 Here I will provide the links and information that I found during the machine-learning portion of my project
 
 Firstly, here are the links that I have primarily been using for my object tracking.
+
+If you want to jump ahead and reference my step-by-step instructions later on, consult these videos as they are very helpful in guiding you.
 
 1. Video that describes how to create the custom dataset and train a custom detection model: https://www.youtube.com/watch?v=mmj3nxGT2YQ
 2. Video that describes how to create a custom object detector (important as this detector will be used to track custom objects): https://www.youtube.com/watch?v=nOIVxi5yurE
@@ -352,3 +355,13 @@ These labels are stored in a txt with each txt being filled with all of the labe
 # Step 2: Training the Model
 
 Now that we have our labels and images in the correct format, it is time to train the machine learning model. One quick note is that the way that the folder should be set up is that each image should be next to its label. So an example is that for traning data, the folder contents could go like this: img1.jpg, img1.txt, img2.jpg, img2.txt, etc. More information can be found by referencing my obj and test folders in the repo.
+
+Now onto the model! We will be training the model through a google colab (https://colab.research.google.com/drive/1_GdoqCJWXsChrOiY8sZMr_zbr_fH-0Fg?usp=sharing). While I wont go into the exact details on how to train your model since they can be found in this link (https://www.youtube.com/watch?v=mmj3nxGT2YQ), I do want to go over abstractly what this step accomplishes and why is it useful. For one, when completeing this step, this will be done all throughout google colab. 
+
+The way that colab will train your model is through referencing a few files: a configuration file, your training and testing .zip files containin your images and labels in the correct order, a obj.names file that has the class names you will be training on, a obj.data file that will have path information to things like images and labels, a generate_test.py and a generate_train.py file to locally obtain the training and testing images, and finally a backup folder. The configuration file is extremly useful as this file will denote how exactly this model will be trained. I have made comments on important variables within the saved config files in the repository. With that being said, some of the important variables to just be aware are the height and width (allow the computer to see a certain amount of a image), the max_batches (allow for the max bumber of iteratiosn the model will train on), classes, filters, batches and subdivisions. These are all parameters that are able to be changed depending on the model you are creating. I typcailly advise not to change them though as they do not vary a ton from our application standpoint.
+
+One other very very important parameter is the backup folder. The backup folder will contain all of the weights that are recieved from the training process. These weights are what makes our trained model different from the next one. They are specific to the training and testing data given, so keep a VERY close eye on your trained weights.The generate_test.py and a generate_train.py files stay the same from application to application. The obj.names and obj.data will change only if your classes change.
+
+In using these files, the model will now train to help more accurately detect and track certain objects. Somethings to take note off are that your model should have an average loss below one in a ideal situation. It isnt terrible if its above 1 but the detections and tracking will suffer as this number keeps going up. 
+
+Throughout the google colab, you will be told how to get these resources and to store them in your yolov4 folder. IT IS IMPORTANT THAT YOU CREATE YOUR YOLOV4 FOLDER AS EMPTY FIRST. After doing this, the steps in the video will guide you on how to set these parameters accordingly. Train your model for a few hours, you typically dont need to go above 4000 iterations. Once that is done, checn the mAP value (Mean Average Precision) or in other words, the accuracy of the model. Then choose if you want to change some parameters to make your training better or to move on. If you are satisfied then congrats, you made your model that we will use to detect and track!
