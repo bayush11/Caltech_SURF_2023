@@ -278,6 +278,12 @@ Conducting statistical tests allows us to gather information that can indirectly
 
 Make sure to fully explain the main.py file (aka the 16, 50, 80%)
 
+Add the high level step by step for the training and testing process (e.g. do so and so and please refer to this link to help you with that)
+Add the evniornment you are working in(google colab, python, matlab, etc).
+reorder the steps to make sense
+make sure to explain other .py files instead of mainly just table_creator.py
+
+
 Take out any unnecessary code
 
 ```bash
