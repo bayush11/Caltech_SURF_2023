@@ -301,6 +301,7 @@ write documentation regarding the different detectors I have and what they essen
 add documentation regarding the matlab parameters and discuss how I got the videos, how much of the video did you use and the sampling rate
 Number of frames used to train each of the models
 add info regarding the config files per 
+potential ways to make model better
 
 ```bash
 print(ks_2samp(medians_sample_1, y_axis_GSD))
