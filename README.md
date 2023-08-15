@@ -289,6 +289,9 @@ delete commeneted code
 add some google colab cells to the machine learning portion to explain the key points to use google colab and HOW to use google colab
 images have to be jpg insetad of tif PUT THIS IN IMPORTANT
 dont pause the training in coolavb 
+add your tracker and detection models to github
+svae the weights in the external hard drive
+comment in the config files and explain what the variables are, why you might need to change it.
 ake out any unnecessary code
 
 ```bash
