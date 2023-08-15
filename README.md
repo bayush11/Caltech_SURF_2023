@@ -354,7 +354,7 @@ These labels are stored in a txt with each txt being filled with all of the labe
 
 # Step 2: Training the Model
 
-Now that we have our labels and images in the correct format, it is time to train the machine learning model. One quick note is that the way that the folder should be set up is that each image should be next to its label. So an example is that for traning data, the folder contents could go like this: img1.jpg, img1.txt, img2.jpg, img2.txt, etc. More information can be found by referencing my obj and test folders in the repo.
+Now that we have our labels and images in the correct format, it is time to train the machine learning model. One quick note is that the way that the folder that contains your training data and the other folder that has your testing data should be set up in a way that each image should be next to its label. So an example is that for traning data, the folder contents could go like this: img1.jpg, img1.txt, img2.jpg, img2.txt, etc. Both your training and testing folders will just have the images and their corresponding labels. More information can be found by referencing my obj and test folders in the repo.
 
 Now onto the model! We will be training the model through a google colab (https://colab.research.google.com/drive/1_GdoqCJWXsChrOiY8sZMr_zbr_fH-0Fg?usp=sharing). While I wont go into the exact details on how to train your model since they can be found in this link (https://www.youtube.com/watch?v=mmj3nxGT2YQ), I do want to go over abstractly what this step accomplishes and why is it useful. For one, when completeing this step, this will be done all throughout google colab. 
 
@@ -362,6 +362,30 @@ The way that colab will train your model is through referencing a few files: a c
 
 One other very very important parameter is the backup folder. The backup folder will contain all of the weights that are recieved from the training process. These weights are what makes our trained model different from the next one. They are specific to the training and testing data given, so keep a VERY close eye on your trained weights.The generate_test.py and a generate_train.py files stay the same from application to application. The obj.names and obj.data will change only if your classes change.
 
-In using these files, the model will now train to help more accurately detect and track certain objects. Somethings to take note off are that your model should have an average loss below one in a ideal situation. It isnt terrible if its above 1 but the detections and tracking will suffer as this number keeps going up. 
+In using these files, the model will now train to help more accurately detect and track certain objects. Somethings to take note off are that your model should have an average loss below one in a ideal situation. It isnt terrible if its above one but the detections and tracking will suffer as this number keeps going up. 
 
-Throughout the google colab, you will be told how to get these resources and to store them in your yolov4 folder. IT IS IMPORTANT THAT YOU CREATE YOUR YOLOV4 FOLDER AS EMPTY FIRST. After doing this, the steps in the video will guide you on how to set these parameters accordingly. Train your model for a few hours, you typically dont need to go above 4000 iterations. Once that is done, checn the mAP value (Mean Average Precision) or in other words, the accuracy of the model. Then choose if you want to change some parameters to make your training better or to move on. If you are satisfied then congrats, you made your model that we will use to detect and track!
+Throughout the google colab, you will be told how to get these resources and to store them in your yolov4 folder which should be located in your google drive. IT IS IMPORTANT THAT YOU CREATE YOUR YOLOV4 FOLDER AS EMPTY FIRST. After doing this, the steps in the video will guide you on how to fill the yolov4 folder with the proper files. Train your model for a few hours, you typically dont need to go above 4000 iterations. Once that is done, checn the mAP value (Mean Average Precision) or in other words, the accuracy of the model. Then choose if you want to change some parameters to make your training better or to move on. If you are satisfied then congrats, you made your model that we will use to detect and track!
+
+# Step 3: Detecting Objects
+
+**NOTE**: This will involve using a TensorFlow training process which was different from the previous Cloud format of training.a
+
+Now that we have our trained model, we can use them for two applications : detecting objects in images/videos or tracking objects in videos. In this subsection, we will focus on detecting objects. The first step is to reference this YouTube link (https://www.youtube.com/watch?v=nOIVxi5yurE) that will help you step by step on what to do to properly detect objects in your images. With tat being said, I will still cover the high level process on what needs to be done.
+
+The first step is to clone this github repository (https://github.com/theAIGuysCode/tensorflow-yolov4-tflite) and to install the proper requirments from the requirements.txt. 
+
+**IMPORTANT**: In the current txt, there is a line that says tensorflow==2.3.0rc0. Change this to tensorflow==2.3.0 and this will solve any errors you have.
+
+After this, you will need to use this command to properly train your model in TensorFlow: python save_model.py --weights ./data/custom.weights --output ./checkpoints/custom-416 --input_size 416 --model yolov4. One might ask, didnt we just train the model? Why again? The reason being is that we trained the model in cloud in google colab. This allowed us to gain the weights associated with our machine learning model. We can now use these weights to proerly train the model in TensorFlow which makes detecting/tracking objects much easier than in cloud.
+
+Additiaonlly, for any image of video that you want to detect, enter into data/images or data/video to store your images and videos. This will be nseecary in the near future.
+
+With that in mind, the custom.weights file needs to be the weights that you recieved from the training in cloud proces. This ensures that the proper TensorFlow model can be accrautely trained to detect your specific image inputs. After this is done, let the model run for a bit as it takes a few minutes to train.
+
+After the model is trained, use this command to see if there are proper bounding boxes around the objects of interest: python detect.py --weights ./checkpoints/custom-416 --size 416 --model yolov4 --images ./data/images/car.jpg. Replace the "car.jpg" with the image that you want to detect from your images folder. Run this command and see your output!
+
+Similarly, if you want to imitate this process for a video isntead, use this command python detect_video.py --weights ./checkpoints/custom-416 --size 416 --model yolov4 --video ./data/video/cars.mp4 --output ./detections/results.avi. Replace the cars.mp4 with the proper video you have referenced and check your detections.
+
+If the output was not what you wanted, then potentially your model needs more training or the image is very unclear. Try different things to see what allows for better accuracy. The output bounding box has a small number that is <= 1 and this represents the models confidence that the bounding box has accuractely tracked an objects of interst.
+
+# Step 4: Tracking Objects
