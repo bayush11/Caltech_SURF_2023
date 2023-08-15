@@ -278,31 +278,31 @@ Conducting statistical tests allows us to gather information that can indirectly
 
 Make sure to fully explain the main.py file (aka the 16, 50, 80%)
 
-Add the high level step by step for the training and testing process (e.g. do so and so and please refer to this link to help you with that)
-Add the evniornment you are working in(google colab, python, matlab, etc).
-reorder the steps to make sense
-make sure to explain other .py files instead of mainly just table_creator.py
-explain the code better and make it more organized
-put comments at the top of each script to explain the script itself 
-put comments in the lines as well 
-delete commeneted code
-add some google colab cells to the machine learning portion to explain the key points to use google colab and HOW to use google colab
-images have to be jpg insetad of tif PUT THIS IN IMPORTANT
-dont pause the training in coolavb 
-add your tracker and detection models to github
-svae the weights in the external hard drive
-comment in the config files and explain what the variables are, why you might need to change it.
-ake out any unnecessary code
-specifically describe how to train the model in the yolov4-deepsort video
-DIFFERENTIATE between tensorflow and google cloud
-link the githubs and the google colab
-talk abt info flag and how this can be used to get the settling velocity
-write documentation regarding the different detectors I have and what they essentially
-add documentation regarding the matlab parameters and discuss how I got the videos, how much of the video did you use and the sampling rate
-Number of frames used to train each of the models
-add info regarding the config files per 
-potential ways to make model better
-write up how to run the object detector 
+1. Add the high level step by step for the training and testing process (e.g. do so and so and please refer to this link to help you with that)
+2. Add the evniornment you are working in(google colab, python, matlab, etc).
+3. reorder the steps to make sense
+4. make sure to explain other .py files instead of mainly just table_creator.py
+5. explain the code better and make it more organized
+6. put comments at the top of each script to explain the script itself 
+7. put comments in the lines as well 
+8. delete commeneted code
+1. add some google colab cells to the machine learning portion to explain the key points to use google colab and HOW to use google colab
+1. images have to be jpg insetad of tif PUT THIS IN IMPORTANT
+1. dont pause the training in coolavb 
+1. add your tracker and detection models to github
+1. svae the weights in the external hard drive
+1. comment in the config files and explain what the variables are, why you might need to change it.
+1. ake out any unnecessary code
+1. specifically describe how to train the model in the yolov4-deepsort video
+1. DIFFERENTIATE between tensorflow and google cloud
+1. link the githubs and the google colab
+1. talk abt info flag and how this can be used to get the settling velocity
+1. write documentation regarding the different detectors I have and what they essentially
+1. add documentation regarding the matlab parameters and discuss how I got the videos, how much of the video did you use and the sampling rate
+1. Number of frames used to train each of the models
+1. add info regarding the config files per 
+1. potential ways to make model better
+1. write up how to run the object detector 
 
 ```bash
 print(ks_2samp(medians_sample_1, y_axis_GSD))
@@ -316,9 +316,10 @@ Here I will provide the links and information that I found during the machine-le
 
 Firstly, here are the links that I have primarily been using for my object tracking.
 
-1. Video that describes how to track objects: https://www.youtube.com/watch?v=FuvQ8Melz1o
+1. Video that describes how to create the custom dataset and train a custom detection model: https://www.youtube.com/watch?v=mmj3nxGT2YQ
 2. Video that describes how to create a custom object detector (important as this detector will be used to track custom objects): https://www.youtube.com/watch?v=nOIVxi5yurE
-3. Video that describes how to create the custom dataset and train a custom detection model: https://www.youtube.com/watch?v=mmj3nxGT2YQ
+3. Video that describes how to track objects: https://www.youtube.com/watch?v=FuvQ8Melz1o
+
 
 All of these videos have links to GitHub that need to be accessed in order to complete the tracking.
 
