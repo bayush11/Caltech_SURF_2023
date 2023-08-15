@@ -280,7 +280,6 @@ Make sure to fully explain the main.py file (aka the 16, 50, 80%)
 
 1. Add the high level step by step for the training and testing process (e.g. do so and so and please refer to this link to help you with that)
 2. Add the evniornment you are working in(google colab, python, matlab, etc).
-3. reorder the steps to make sense
 4. make sure to explain other .py files instead of mainly just table_creator.py
 5. explain the code better and make it more organized
 6. put comments at the top of each script to explain the script itself 
@@ -302,7 +301,10 @@ Make sure to fully explain the main.py file (aka the 16, 50, 80%)
 1. Number of frames used to train each of the models
 1. add info regarding the config files per 
 1. potential ways to make model better
-1. write up how to run the object detector 
+1. write up how to run the object detector
+2. The training is done in google colab. After an hour or two, computing power will run out and ask you to buy stronger power for 10$ a month. DON'T DO THIS. Instead, switch between Google accounts and keep running your model through there. At one point you will exhaust your resources for the day. The computing power resets the next day**
+3. Make sure to input images when you are saying you will
+4. I didnt expalin too much abt the labeling, is that chill
 
 ```bash
 print(ks_2samp(medians_sample_1, y_axis_GSD))
@@ -323,12 +325,30 @@ Firstly, here are the links that I have primarily been using for my object track
 
 All of these videos have links to GitHub that need to be accessed in order to complete the tracking.
 
-# Training
+# Tracking Model Creation
 
-The tracking can be classified into two sets: training the machine learning model and then using the trained model to track/detect objects. The link that I gave that shows how to make your own data/model will provide you links to not only make your own custom dataset but also how to train your machine learning model. Use this to create your model properly.
+There are two large steps that are required in creating a proper machine learning model to track particle. The **first** step is to develop your model through creating labels from images (1) and then using those labels for training your machine learning model (2). This step is nessecary as this will allow you to develop the model that will be used for detecting and tracking future objects. The **second** step in the process is to use this trained model to detect (3) and track objects(4).
 
-**NOTE: The training is done in google colab. After an hour or two, computing power will run out and ask you to buy stronger power for 10$ a month. DON'T DO THIS. Instead, switch between Google accounts and keep running your model through there. At one point you will exhaust your resources for the day. The computing power resets the next day**
+The numbers inside of the paraenthesis represent the step down below that will go deeper into how to complete this.
 
-# Detecting and Tracking
+I will cover a high level step-by-step process on how to complete these two steps.
 
-After your model is able to detect objects properly, use the first two links provided to use your trained model to track and train objects. Some area for potential error is that you are inputting the wrong number of classes or that you are using the wrong model. Please look up your errors online for this as there are plenty of resources that helped me to solve my issues.
+# Step 1: Developing Labels 
+
+**Label Format: YOLOV4**
+
+Lets dive into how to first get your labeled images. This is important as in computer vision, the main goal that you want is for computer to be able to recognize shapes and objects on a screen. With that in mind though, how can a computer even being to understand this? The answer is through labeled images. I have provided an example of an image, and then a image with a label to help give some context. **PUT AN IMAGE BELOW**
+
+A labeled image tells the computer **WHERE** exactly the object is and **WHAT** the objrect is. Doing this, the computer will know how exactly to classifiy future instances of a similar object. How can we exactly get these labels now? There are two ways this can be done. The first way is to autmoatically get the labels from the images by using online software and code. Here is a link to a way to download images and their labels online (https://www.youtube.com/watch?v=_4A9inxGqRM). The other way is to manually draw a bounding box around each of the objects within your image and to store the labels through there.
+
+I personally recommend automating this process. At the start of this project, I orignally used the manual way as I already had custom images (the autmoated way above only works if you use google images); with that in mind, I found a way to automatically get bounding boxes for the particles within each image using the Keyvani and Strom (2013) workflow (https://doi.org/10.1016/j.cageo.2012.08.018).
+
+I want to sasy again that it is VERY VERY IMPORTANT that you find a way to automate this process. The reason being is that the more labels and images you can have, the more accurate your object detector/tracker can be. Don't try to compromise this step.
+
+I want to quickly discuss the labels themselves. Each label represents the bounding boxes around the objects that you are trying to detect. The exact format is not extremerly important as there are specific ways that the labels are converted; the overall message though is that they are each of the bounding boxes around objects in an image. These lables will be what we are using to train the machine learning model as again, the labels give the computer a location to actually see the images.
+
+These labels are stored in a txt with each txt being filled with all of the labels for every object within an image. So for example, an image with 8 bounding boxes will have 8 labels and 8 lines in the txt. 
+
+# Step 2: Training the Model
+
+Now that we have our labels and images in the correct format, it is time to train the machine learning model. One quick note is that the way that the folder should be set up is that each image should be next to its label. So an example is that for traning data, the folder contents could go like this: img1.jpg, img1.txt, img2.jpg, img2.txt, etc. More information can be found by referencing my obj and test folders in the repo.
