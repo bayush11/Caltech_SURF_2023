@@ -368,7 +368,7 @@ Throughout the google colab, you will be told how to get these resources and to 
 
 # Step 3: Detecting Objects
 
-**NOTE**: This will involve using a TensorFlow training process which was different from the previous Cloud format of training.a
+**NOTE**: This will involve using a TensorFlow training process which was different from the previous Cloud format of training. Additionally, all the training and testing will be done through a command prompt/terminal
 
 Now that we have our trained model, we can use them for two applications : detecting objects in images/videos or tracking objects in videos. In this subsection, we will focus on detecting objects. The first step is to reference this YouTube link (https://www.youtube.com/watch?v=nOIVxi5yurE) that will help you step by step on what to do to properly detect objects in your images. With tat being said, I will still cover the high level process on what needs to be done.
 
@@ -384,8 +384,22 @@ With that in mind, the custom.weights file needs to be the weights that you reci
 
 After the model is trained, use this command to see if there are proper bounding boxes around the objects of interest: python detect.py --weights ./checkpoints/custom-416 --size 416 --model yolov4 --images ./data/images/car.jpg. Replace the "car.jpg" with the image that you want to detect from your images folder. Run this command and see your output!
 
-Similarly, if you want to imitate this process for a video isntead, use this command python detect_video.py --weights ./checkpoints/custom-416 --size 416 --model yolov4 --video ./data/video/cars.mp4 --output ./detections/results.avi. Replace the cars.mp4 with the proper video you have referenced and check your detections.
+Similarly, if you want to imitate this process for a video isntead, use this command python detect_video.py --weights ./checkpoints/custom-416 --size 416 --model yolov4 --video ./data/video/cars.mp4 --output ./detections/results.avi. Replace the cars.mp4 with the proper video you have referenced and check your detections. The resulting file is stored in the detections folder.
 
 If the output was not what you wanted, then potentially your model needs more training or the image is very unclear. Try different things to see what allows for better accuracy. The output bounding box has a small number that is <= 1 and this represents the models confidence that the bounding box has accuractely tracked an objects of interst.
 
 # Step 4: Tracking Objects
+
+This step will be similar to the detecting objects step. There, however, are a few small differences and we will go over what they are.
+
+The first step is to start with this YouTube link (https://www.youtube.com/watch?v=FuvQ8Melz1o) that will assist you step-by-step on how to track objects in videos of your choice. I will, however, still detail how to get this process running below.
+
+The primary step is to clone this github (https://github.com/theAIGuysCode/yolov4-deepsort) and to install the proper requirments.
+
+**IMPORTANT**: In the current txt, there is a line that says tensorflow==2.3.0rc0. Change this to tensorflow==2.3.0 and this will solve any errors you have.
+
+Additiaonlly, for any video that you want to track, enter into data/video to store your videos. This will be nseecary in the near future.
+
+After doing this, this is a very important step. In the official repository, they will tell you to run this command: python save_model.py --model yolov4. **DO NOT DO THIS**. Instead, run the command from before that you used to run your custom object detector: python save_model.py --weights ./data/custom.weights --output ./checkpoints/custom-416 --input_size 416 --model yolov4. This will train the TensorFlow model to track objects that you custom trained. the command in the official repositry is for a general pretrained model.
+
+After letting the model train for a few minutes, paste this command into the terminal: python object_tracker.py --video ./data/video/test.mp4 --output ./outputs/demo.avi --model yolov4. Replace the test.mp4 with your specific video and run this prompt. Check the results of the tracking in the outputs folder. If the tracker is inaccurate, then try to increase the acccuracy of your trained weights or try a different video for an improvment in clarity.
