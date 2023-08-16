@@ -274,11 +274,22 @@ Results of the PDF of the PSD vs GSD.
 
 Conducting statistical tests allows us to gather information that can indirectly help us see flocculation patterns. The line below helps to complete a Kolmogorov–Smirnov test and compares the PSD and GSD data.
 
+# frame_extractor.py 
+
+I will brefily go over the frame_extractor.py file and discuss what is the point of this file.
+
+This file is used to take in a given video and to convert it to a time-series of images. The factor that you can change is the nth frame you would like to pick up.
+
+```bash
+counter = 10 #captures every nth image
+```
+
+Using this, you can extract every 10th frame in a video and create a time series from it.
+
 # TODO
 
 Make sure to fully explain the main.py file (aka the 16, 50, 80%)
 
-2. Add the evniornment you are working in(google colab, python, matlab, etc).
 4. make sure to explain other .py files instead of mainly just table_creator.py
 5. explain the code better and make it more organized
 6. put comments at the top of each script to explain the script itself 
@@ -338,6 +349,7 @@ I will cover a high-level step-by-step process on how to complete these two step
 # Step 1: Developing Labels 
 
 **Label Format: YOLOV4**
+**Enviornment: Terminal + Python**
 
 Let's dive into how to first get your labeled images. This is important as in computer vision, the main goal that you want is for the computer to be able to recognize shapes and objects on a screen. With that in mind though, how can a computer even being to understand this? The answer is through labeled images. I have provided an example of an image, and then a image with a label to help give some context. **PUT AN IMAGE BELOW**
 
@@ -353,6 +365,8 @@ These labels are stored in a txt with each txt being filled with all of the labe
 
 # Step 2: Training the Model
 
+**Enviornment: Google Collab**
+
 Now that we have our labels and images in the correct format, it is time to train the machine-learning model. One quick note is that the way that the folder that contains your training data and the other folder that has your testing data should be set up in a way that each image should be next to its label. So an example is that for training data, the folder contents could go like this: img1.jpg, img1.txt, img2.jpg, img2.txt, etc. Both your training and testing folders will just have the images and their corresponding labels. More information can be found by referencing my obj and test folders in the repo.
 
 Now onto the model! We will be training the model through a Google colab (https://colab.research.google.com/drive/1_GdoqCJWXsChrOiY8sZMr_zbr_fH-0Fg?usp=sharing). While I won't go into the exact details on how to train your model since they can be found in this link (https://www.youtube.com/watch?v=mmj3nxGT2YQ), I do want to go over abstractly what this step accomplishes and why is it useful. For one, when completing this step, this will be done through google colab. 
@@ -366,6 +380,8 @@ In using these files, the model will now train to help more accurately detect an
 Throughout the Google collab, you will be told how to get these resources and to store them in your yolov4 folder which should be located in your google drive. YOU MUST CREATE YOUR YOLOV4 FOLDER AS EMPTY FIRST. After doing this, the steps in the video will guide you on how to fill the yolov4 folder with the proper files. Train your model for a few hours, you typically don't need to go above 4000 iterations. Once that is done, check the mAP value (Mean Average Precision) or in other words, the accuracy of the model. Then choose if you want to change some parameters to make your training better or to move on. If you are satisfied then congrats, you made your model that we will use to detect and track!
 
 # Step 3: Detecting Objects
+
+**Enviornment: Terminal**
 
 **NOTE**: This will involve using a TensorFlow training process which was different from the previous Cloud format of training. Additionally, all the training and testing will be done through a command prompt/terminal
 
@@ -388,6 +404,8 @@ Similarly, if you want to imitate this process for a video instead, use this com
 If the output was not what you wanted, then potentially your model needs more training or the image is very unclear. Try different things to see what allows for better accuracy. The output bounding box has a small number that is <= 1 and this represents the model's confidence that the bounding box has accurately tracked an objects of interest.
 
 # Step 4: Tracking Objects
+
+**Enviornment: Terminal**
 
 This step will be similar to the detecting objects step. There, however, are a few small differences and we will go over what they are.
 
