@@ -278,7 +278,6 @@ Conducting statistical tests allows us to gather information that can indirectly
 
 Make sure to fully explain the main.py file (aka the 16, 50, 80%)
 
-1. Add the high level step by step for the training and testing process (e.g. do so and so and please refer to this link to help you with that)
 2. Add the evniornment you are working in(google colab, python, matlab, etc).
 4. make sure to explain other .py files instead of mainly just table_creator.py
 5. explain the code better and make it more organized
@@ -286,8 +285,6 @@ Make sure to fully explain the main.py file (aka the 16, 50, 80%)
 7. put comments in the lines as well 
 8. delete commeneted code
 1. add some google colab cells to the machine learning portion to explain the key points to use google colab and HOW to use google colab
-1. images have to be jpg insetad of tif PUT THIS IN IMPORTANT
-1. dont pause the training in coolavb 
 1. add your tracker and detection models to github
 1. svae the weights in the external hard drive
 1. comment in the config files and explain what the variables are, why you might need to change it.
@@ -329,6 +326,8 @@ If you want to jump ahead and reference my step-by-step instructions later on, c
 All of these videos have links to GitHub that need to be accessed to complete the tracking.
 
 # Tracking Model Creation
+
+**IMPORTANT**: Before you begin this process, consult the subsection labeled "Tips" as this can save you a lot of time on small tasks related to creating your model.
 
 There are two large steps that are required in creating a proper machine-learning model to track particles. The **first** step is to develop your model by creating labels from images (1) and then using those labels for training your machine-learning model (2). This step is necessary as this will allow you to develop the model that will be used for detecting and tracking future objects. The **second** step in the process is to use this trained model to detect (3) and track objects(4).
 
@@ -403,3 +402,24 @@ Additionally, for any video that you want to track, enter into data/video to sto
 After doing this, this is a very important step. In the official repository, they will tell you to run this command: python save_model.py --model yolov4. **DO NOT DO THIS**. Instead, run the command from before that you used to run your custom object detector: python save_model.py --weights ./data/custom.weights --output ./checkpoints/custom-416 --input_size 416 --model yolov4. This will train the TensorFlow model to track objects that you custom trained. the command in the official repository is for a general pre-trained model.
 
 After letting the model train for a few minutes, paste this command into the terminal: python object_tracker.py --video ./data/video/test.mp4 --output ./outputs/demo.avi --model yolov4. Replace the test.mp4 with your specific video and run this prompt. Check the results of the tracking in the outputs folder. If the tracker is inaccurate, then try to increase the accuracy of your trained weights or try a different video for an improvement in clarity.
+
+# Step 5: Getting the Settling Velocity
+
+In my specific application, I am tracking particles. After you have tracked the particles successfully, run the tracker again but instead, and the end of the line that is used to run the tracker, add a --info. The official command will look like this python object_tracker.py --video ./data/video/test.mp4 --output ./outputs/demo.avi --model yolov4 --info. Doing so will give you the xmin, ymin, xmax, ymax in parenthesis format for each object tracked per frame. After this information is seen, one can output this to a txt file and get the settling velocity of the particles by comparing the pixel displacement between particles and computing the velocity.
+
+# Potential Ways to Improve Model 
+
+There are many ways that one can use to improve their model. They are listed below in rank of what I believe to be the most effective.
+
+1. The accuracy of your model is too low, so there needs to be more training and testing data. Without the proper amount, the model does no thave a lot to go off, making predictions mediocre at best.
+2. Making sure the labels are accurate as sometimes loose labels results in unconfident guesses at objects.
+3. Changing the width and height of your model as well as the batch/subdivisions to fit your data better.
+4. The model being run is the wrong type of model and needs to be switched out.
+
+# Tips
+
+This section will delve into some small steps that you can take that will allow you to reduce the total time taken in the process of creating the machine learniing model you desire.
+
+1. When running your training process in the cloud, make sure your image data is in jpg insetad of tif or other formats. I am not sure if other formats work but I know .tif doesnt work and .jpg does.
+2. When officially training your model, dont pause the training in Collab as this will a lot of times result in a GPU shortage, meaning that you cant train your model until the next day
+3. Don't pay for the Collab premium; instead, just wait a day before Google Collab resets its GPU sources. 
