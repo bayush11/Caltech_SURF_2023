@@ -6,7 +6,7 @@ Below I will be discussing the particle tracking project that was being done ove
 
 # Imaging Data 
 
-The imaging data was processed through the Keyvani and Strom (2013) workflow. This is the paper link: https://doi.org/10.1016/j.cageo.2012.08.018.
+The imaging data was processed through the Keyvani and Strom (2013) workflow. This is the paper link: https://doi.org/10.1016/j.cageo.2012.08.018. The MATLAB parameters that I used to gain the images below are that I had the Gaussian kernel standard deviation to be 10.5 as well as the Gradient Cutoff being 1.6*10^(-3). These are the parameters that I have found to extract the flocs best.
 
 Below are the different phases that the images have gone through in the Keyvani and Strom (2013) workflow. When processing a time-series, one should get folders of these three image types plus a binarized labeled image.
 
