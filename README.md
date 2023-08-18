@@ -473,6 +473,10 @@ There are many ways that one can use to improve their model. They are listed bel
 3. Changing the width and height of your model as well as the batch/subdivisions to fit your data better.
 4. The model being run is the wrong type of model and needs to be switched out.
 
+# PARTICLE_DETECTOR_XXX
+
+I will delve into the specifics of the PARTICLE_DETECTOR_XXX files. There should be three files that are in this repository that have the words PARTICLE_DETECTOR_XXX. The XXX represents different words but specifically it should vary from BINARY, GRADIENT, and ORIGINAL. I decided to include these three folders in this repository as seeing their structure will create a sense of structure when going through this tutorial and Google Colab. The file structure each have 7 files: generate_test.py, generate_train.py, obj.data, obj.names, obj.zip, test.zip, yolov4-obj.cfg. As discussed before, there will additionally be a backup folder that I did not add as the size is too large for github to contain. The only difference between these three folders are the images in the obj.zip and test.zip. The configuration file stays the same as we are training on the same type of data and the python + obj.data and names file are all the same as well as if oyou follow the instructions on the google colab, then this should stay consistent. Using the weights, however, you can test out the detection and tracking on different video and image data that relates to the type of model trained. 
+
 # Tips
 
 This section will delve into some small steps that you can take that will allow you to reduce the total time taken in the process of creating the machine learniing model you desire.
