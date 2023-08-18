@@ -338,7 +338,6 @@ Using this, you can extract every 10th frame in a video and create a time series
 7. put comments in the lines as well 
 8. delete commeneted code
 1. add some google colab cells to the machine learning portion to explain the key points to use google colab and HOW to use google colab
-1. add your tracker and detection models to github
 1. svae the weights in the external hard drive
 1. comment in the config files and explain what the variables are, why you might need to change it.
 1. ake out any unnecessary code
