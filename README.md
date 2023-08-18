@@ -339,18 +339,11 @@ Using this, you can extract every 10th frame in a video and create a time series
 8. delete commeneted code
 1. add some google colab cells to the machine learning portion to explain the key points to use google colab and HOW to use google colab
 1. svae the weights in the external hard drive
-1. comment in the config files and explain what the variables are, why you might need to change it.
 1. ake out any unnecessary code
 1. link the githubs and the google colab
 1. write documentation regarding the different detectors I have and what they essentially
 1. add documentation regarding the matlab parameters and discuss how I got the videos, how much of the video did you use and the sampling rate
-1. Number of frames used to train each of the models
-1. add info regarding the config files per 
-1. potential ways to make model better
-1. write up how to run the object detector
-2. The training is done in google colab. After an hour or two, computing power will run out and ask you to buy stronger power for 10$ a month. DON'T DO THIS. Instead, switch between Google accounts and keep running your model through there. At one point you will exhaust your resources for the day. The computing power resets the next day**
 3. Make sure to input images when you are saying you will
-4. I didnt expalin too much abt the labeling, is that chill
 5. When talking about the labeling, you dont every discuss how YOU DID IT. TALK ABT THAT.
 
 ```bash
