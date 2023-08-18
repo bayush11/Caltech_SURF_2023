@@ -1,3 +1,7 @@
+#This code file will help to discuss the creation of the GSD table, which willl help calculating variables like the individual and combined GSD. After this, the file discusses how the GSD 
+#and PSD and calculated in PDF/CDF format.
+
+
 import csv
 import math
 import statistics
@@ -22,7 +26,7 @@ with open('Average_Grain_Size_Distributions.csv', newline='') as f:
 
 grain_types_names = list(grain_types.keys())
 
-table = {}
+table = {} #These sections are going to store the information where each table section is.
 table['sediment'] = []
 table['class number'] = []
 table['D Lower'] = []
@@ -46,7 +50,7 @@ for i in range(3):
         index_number += 1
 
 ###############
-proportion_s = 0.6
+proportion_s = 0.6 #These are the invidual GSD proprtions I made up for each grain type.
 proportion_k = 0.2
 proportion_m = 0.2
 list_of_proportions = [proportion_s, proportion_k, proportion_m]
