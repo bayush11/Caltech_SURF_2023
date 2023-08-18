@@ -346,6 +346,7 @@ Using this, you can extract every 10th frame in a video and create a time series
 3. Make sure to input images when you are saying you will
 5. When talking about the labeling, you dont every discuss how YOU DID IT. TALK ABT THAT.
 6. Add the information regarding the hard drive
+7. Send excel sheet to Justin after completion
 
 ```bash
 print(ks_2samp(medians_sample_1, y_axis_GSD))
