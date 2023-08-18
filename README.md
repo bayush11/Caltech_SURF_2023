@@ -333,7 +333,6 @@ Using this, you can extract every 10th frame in a video and create a time series
 
 # TODO
 
-4. make sure to explain other .py files instead of mainly just table_creator.py
 5. explain the code better and make it more organized
 6. put comments at the top of each script to explain the script itself 
 7. put comments in the lines as well 
@@ -343,10 +342,7 @@ Using this, you can extract every 10th frame in a video and create a time series
 1. svae the weights in the external hard drive
 1. comment in the config files and explain what the variables are, why you might need to change it.
 1. ake out any unnecessary code
-1. specifically describe how to train the model in the yolov4-deepsort video
-1. DIFFERENTIATE between tensorflow and google cloud
 1. link the githubs and the google colab
-1. talk abt info flag and how this can be used to get the settling velocity
 1. write documentation regarding the different detectors I have and what they essentially
 1. add documentation regarding the matlab parameters and discuss how I got the videos, how much of the video did you use and the sampling rate
 1. Number of frames used to train each of the models
