@@ -402,6 +402,8 @@ I want to quickly discuss the labels themselves. Each label represents the bound
 
 These labels are stored in a txt with each txt being filled with all of the labels for every object within an image. So for example, an image with 8 bounding boxes will have 8 labels and 8 lines in the txt. 
 
+In the PARTICLE_DETECTOR files seen, I typcially have 15 images for training and 3 images for testing. This is a very low amount a good number to reference is 1500 images for training and 300 images for testing. This also means that there will be 1500 labels in training and 300 labels in testing.
+
 # Step 2: Training the Model
 
 **Enviornment: Google Collab**
