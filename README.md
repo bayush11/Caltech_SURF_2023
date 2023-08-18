@@ -345,6 +345,7 @@ Using this, you can extract every 10th frame in a video and create a time series
 1. add documentation regarding the matlab parameters and discuss how I got the videos, how much of the video did you use and the sampling rate
 3. Make sure to input images when you are saying you will
 5. When talking about the labeling, you dont every discuss how YOU DID IT. TALK ABT THAT.
+6. Add the information regarding the hard drive
 
 ```bash
 print(ks_2samp(medians_sample_1, y_axis_GSD))
