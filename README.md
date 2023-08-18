@@ -17,6 +17,51 @@ Below are the different phases that the images have gone through in the Keyvani 
 # Binarized Image
 ![frame_0001](https://github.com/bayush11/Caltech_SURF_2023/assets/70395352/84fc46c2-b1da-4887-bb5a-53f3eca1f9a0)
 
+# Frame_Extractor.py 
+
+I will quickly take some time to explain the frame_extractor.py file. This file will take a video you ahve and convert that into a time-series set of images. The time-series can vary in the size depending on what kind of factor you have it as. For example, if you set the n variable as 10, then the time-series will have every 10th image within the extracted images. If this is also one, then it will get every image.
+
+```bash
+if ret and counter == 0:
+        name = r"C:\Users\ayush\Documents\IMG_FROM_VIDEO\frame" + str(currentframe) + '.jpg'
+        print('Creating...' + name)
+
+        cv2.imwrite(name, frame)
+
+        currentframe += 1
+        counter = 10
+```
+
+The code above sets the couunter to 10, meaning that every 10th image will be recieved.
+
+# Pixel_To_Real_Convertor.py 
+
+This code takes in a pixel and converts it to a real time measurement. Depending on what the convresion is, the resulting values can vary. This is done to make the computations between pixel size and real-life size to be much simpler. An exmaple is that if each pixel on screen represents a foot in a water enviornment, then one would set the conversions below to that.
+
+```bash
+for i in diameters:
+    new_diameters.append(i * 3.14151617 - 2) #random conversion for now
+```
+As seen above, the factor that is multiplied by i will be the conversion factor.
+
+# main.py
+
+The main.py file focuses on plotting the 16, 50, and 84th percentile values for the diameters in the imaging data. This allows us to see trends within the data, which can furthermore lead to conclusions being made regarding the occurence of flocculation. The code below shows that there is some repititon from the code in table_creator.py as they both plot the diameters of the imaging data; with that in mind though, this will take a step further and plot the 16 and 84th percentile values of the distribution.
+
+```bash
+samples_84th_percent.append(np.quantile(lister, 0.84))
+samples_16th_percent.append(np.quantile(lister, 0.16))
+```
+
+This file also calculates the number of particles that is present in each frame. This can potentially suggest flocculation as if the number of particles are decreasing, then that means they are combining into each other, which suggest flocculation. The code below shows a snippet where the number of particles are claculated and plotted.
+
+```bash
+for i in imgNum:
+    if i not in list_of_elements:
+        list_of_elements.append(i)
+for i in list_of_elements:
+    total_num_particles[i] = imgNum.count(i)
+```
 # Frame vs Diameter Code
 
 Before going into the code, this code snippet below shows how to convert from the frame number to time. The FPS is 60, so this is just a multiplication factor that is needed.
@@ -287,8 +332,6 @@ counter = 10 #captures every nth image
 Using this, you can extract every 10th frame in a video and create a time series from it.
 
 # TODO
-
-Make sure to fully explain the main.py file (aka the 16, 50, 80%)
 
 4. make sure to explain other .py files instead of mainly just table_creator.py
 5. explain the code better and make it more organized
