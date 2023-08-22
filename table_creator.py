@@ -1,5 +1,5 @@
-#This code file will help to discuss the creation of the GSD table, which willl help calculating variables like the individual and combined GSD. After this, the file discusses how the GSD 
-#and PSD and calculated in PDF/CDF format.
+#This code file will help to discuss the creation of the GSD table, which willl help calculating variables like the individual and combined GSD. 
+#After this, the file discusses how the GSD and PSD and calculated in PDF/CDF format.
 
 
 import csv
@@ -11,10 +11,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from scipy.stats import ks_2samp
 
-
-#TODO: Automate it for length of csv file
-#TODO: Make sure I am not missing any numbers through outliers etc
-grain_types = {}
+grain_types = {} #This part of the code is used to get the grain size distribution into the file.
 with open('Average_Grain_Size_Distributions.csv', newline='') as f:
   reader = csv.reader(f)
   row1 = next(reader)
@@ -36,10 +33,10 @@ table['Volume Fraction'] = []
 index_number = 1
 for i in range(3):
     class_number = 1
-    curr_grain_type = grain_types_names[i]
+    curr_grain_type = grain_types_names[i] #this line and the one below get the grain type and values that will be used to get table values.
     curr_grain_vals = grain_types[curr_grain_type]
     for j in range(len(curr_grain_vals) - 1): #n-1 iterations as we are taking the class
-        table['sediment'].append(curr_grain_type)
+        table['sediment'].append(curr_grain_type) #these are the calculations done below to get the specific table values.
         table['class number'].append(class_number)
         table['D Lower'].append(grain_size[j])
         table['D Upper'].append(grain_size[j + 1])
@@ -55,7 +52,7 @@ proportion_k = 0.2
 proportion_m = 0.2
 list_of_proportions = [proportion_s, proportion_k, proportion_m]
 dict_of_proportions = {}
-for i in range(len(grain_types_names)):
+for i in range(len(grain_types_names)): #this sets the list of proportions to each of the grain types.
     dict_of_proportions[grain_types_names[i]] = list_of_proportions[i]
 #GOAL: TRY TO GET THE FACTIONAL VOL FOR EACH CLASS #
 vol_fractions_grains = {}
@@ -79,17 +76,17 @@ for i in range(3): #this is to get lists of the different vol_fracs
 #Finding the combined y_axis value
 x_axis = np.arange(num_of_sediments)
 y_axis_combined_GSD = []
-for i in range(num_of_sediments):
+for i in range(num_of_sediments): #the code below will get the combined GSD values and store that into the list for this.  
     val_of_y = (proportion_s * vol_fractions_grains[grain_types_names[0]][i]) + proportion_k * vol_fractions_grains[grain_types_names[1]][i] + proportion_m * vol_fractions_grains[grain_types_names[2]][i]
     num = val_of_y / (math.log(table['D Upper'][i]) - math.log(table['D Lower'][i]))
     y_axis_combined_GSD.append(num)
 total_GSD_value = sum(y_axis_combined_GSD)
-for i in range(num_of_sediments):
+for i in range(num_of_sediments): #the normalizing of the combined GSD values
     normalized_GSD = y_axis_combined_GSD[i] / total_GSD_value
     y_axis_combined_GSD[i] = normalized_GSD
 
 #GRAPH COMBINED GSD
-plt.xlabel('Grain Size (um)')
+plt.xlabel('Grain Size (um)') #plotting the results of the combined GSD with a log scale for the x axis.
 plt.ylabel('PDF')
 plt.title('Different Grain Size Distribution Plot')
 plt.xscale("log")
@@ -97,7 +94,7 @@ plt.plot(x_axis, y_axis_combined_GSD, label = "Combined GSD")
 ###################
 keys = list(table.keys())
 list_of_GSD_dict = []
-for i in range(len(sediments)):
+for i in range(len(sediments)): #new format for the table values as this will be exported to a csv.
     new_dict = {}
     new_dict[keys[0]] = table[keys[0]][i]
     new_dict[keys[1]] = table[keys[1]][i]
@@ -109,7 +106,7 @@ for i in range(len(sediments)):
 
 
 with open('table_results.csv', 'w', newline = '') as csvfile:
-    writer = csv.DictWriter(csvfile, fieldnames = keys)
+    writer = csv.DictWriter(csvfile, fieldnames = keys) #exporting to a seperate csv.
     writer.writeheader()
     writer.writerows(list_of_GSD_dict)
 ###################################################
@@ -118,7 +115,7 @@ individual_sediment_pdf = {}
 for name in list(vol_fractions_grains.keys()):
    individual_sediment_pdf[name] = []
    proportion = dict_of_proportions[name]
-   for i in range(len(vol_fractions_grains[name])):
+   for i in range(len(vol_fractions_grains[name])): #This is done to find the individual grain size distribution values as before it was the combined GSD.
        f = vol_fractions_grains[name][i]
        num = f / (math.log(table['D Upper'][i]) - math.log(table['D Lower'][i]))
        individual_sediment_pdf[name].append(num)
@@ -126,7 +123,7 @@ for name in list(vol_fractions_grains.keys()):
    for i in range(len(individual_sediment_pdf[name])):
        individual_sediment_pdf[name][i] = individual_sediment_pdf[name][i] / sum_of_vals
 
-x_axis = np.arange(num_of_sediments)
+x_axis = np.arange(num_of_sediments) #plotting these values.
 for name_sediment, y_axis in individual_sediment_pdf.items():
     plt.plot(x_axis, y_axis, label = "GSD of " + str(name_sediment))
 
@@ -140,7 +137,7 @@ df = pd.read_csv('results.csv')
 diameters = list(df.loc[:,"EquivDiameter"])
 diameters = [float(i) * 0.81 for i in diameters]
 CDF_for_GSD = []
-for i in range(len(y_axis_combined_GSD)):
+for i in range(len(y_axis_combined_GSD)): #finding the CDF of the GSD.
     CDF_for_GSD.append(sum(y_axis_combined_GSD[0:i]))
 #CDF OF PSD
 CDF_for_PSD = []
@@ -153,7 +150,7 @@ for i in diameters:
     value = temp.size / size_data
     # pushing the value in the y_values
     if value not in CDF_for_PSD:
-        CDF_for_PSD.append(value)
+        CDF_for_PSD.append(value) 
 ##################
 
 x_axis_1 = list(np.arange(len(CDF_for_PSD)))
