@@ -8,6 +8,8 @@ Below I will be discussing the particle tracking project that was being done ove
 
 The imaging data was processed through the Keyvani and Strom (2013) workflow. This is the paper link: https://doi.org/10.1016/j.cageo.2012.08.018. The MATLAB parameters that I used to gain the images below are that I had the Gaussian kernel standard deviation to be 10.5 as well as the Gradient Cutoff being 1.6*10^(-3). These are the parameters that I have found to extract the flocs best. I additionally got the original videos from the work being done in the Flume lab. These experiments were the results of simulated particle movement in their natural habitat. The videos in consideration have improved considerably since the beginning of the internship and these images/videos are the best of what I have recieved. Thanks Kim and Kyd!
 
+One more note, the videos that I have recieved are long and at the start of them, the flocs/particles are moving very fast. Because of that, I have used the videos starting at 9 minutes and past as in that time, the flocs in the videos get much slower, which also improves the particle tracking process when comparing this to the very start of the videos.
+
 Below are the different phases that the images have gone through in the Keyvani and Strom (2013) workflow. When processing a time-series, one should get folders of these three image types plus a binarized labeled image.
 
 # Greyscale Image
