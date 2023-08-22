@@ -6,11 +6,11 @@ Below I will be discussing the particle tracking project that was being done ove
 
 # Imaging Data 
 
-The imaging data was processed through the Keyvani and Strom (2013) workflow. This is the paper link: https://doi.org/10.1016/j.cageo.2012.08.018. The MATLAB parameters that I used to gain the images below are that I had the Gaussian kernel standard deviation to be 10.5 as well as the Gradient Cutoff being 1.6*10^(-3). These are the parameters that I have found to extract the flocs best. I additionally got the original videos from the work being done in the Flume lab. These experiments were the results of simulated particle movement in their natural habitat. The videos in consideration have improved considerably since the beginning of the internship and these images/videos are the best of what I have recieved. Thanks Kim and Kyd!
+The imaging data was processed through the Keyvani and Strom (2013) workflow. This is the paper link: https://doi.org/10.1016/j.cageo.2012.08.018. The MATLAB parameters that I used to gain the images below are that I had the Gaussian kernel standard deviation to be 10.5 as well as the Gradient Cutoff being 1.6*10^(-3). These are the parameters that I have found to extract the flocs best. I additionally got the original videos from the work being done in the Flume lab. These experiments were the results of simulated particle movement in their natural habitat. The videos in consideration have improved considerably since the beginning of the internship and these images/videos are the best of what I have received. Thanks, Kim and Kyd!
 
-One more note, the videos that I have recieved are long and at the start of them, the flocs/particles are moving very fast. Because of that, I have used the videos starting at 9 minutes and past as in that time, the flocs in the videos get much slower, which also improves the particle tracking process when comparing this to the very start of the videos.
+One more note, the videos that I have received are long and at the start of them, the flocs/particles are moving very fast. Because of that, I have used the videos starting at 9 minutes and past as in that time, the flocs in the videos get much slower, which also improves the particle tracking process when comparing this to the very start of the videos.
 
-Below are the different phases that the images have gone through in the Keyvani and Strom (2013) workflow. When processing a time-series, one should get folders of these three image types plus a binarized labeled image.
+Below are the different phases that the images have gone through in the Keyvani and Strom (2013) workflow. When processing a time series, one should get folders of these three image types plus a binarized labeled image.
 
 # Greyscale Image
 ![frame_0001](https://github.com/bayush11/Caltech_SURF_2023/assets/70395352/2f34e207-d9e8-4aa6-b74f-c4baba509813)
@@ -21,7 +21,7 @@ Below are the different phases that the images have gone through in the Keyvani 
 
 # Frame_Extractor.py 
 
-I will quickly take some time to explain the frame_extractor.py file. This file will take a video you have and convert that into a time-series set of images. The time-series can vary in the size depending on what kind of factor you have it as. For example, if you set the n variable as 10, then the time-series will have every 10th image within the extracted images. If this is also one, then it will get every image.
+I will quickly take some time to explain the frame_extractor.py file. This file will take a video you have and convert that into a time-series set of images. The time series can vary in size depending on what kind of factor you have it as. For example, if you set the n variable as 10, then the time series will have every 10th image within the extracted images. If this is also one, then it will get every image.
 
 ```bash
 if ret and counter == 0:
@@ -34,11 +34,11 @@ if ret and counter == 0:
         counter = 10
 ```
 
-The code above sets the couunter to 10, meaning that every 10th image will be recieved.
+The code above sets the counter to 10, meaning that every 10th image will be received.
 
 # Pixel_To_Real_Convertor.py 
 
-This code takes in a pixel and converts it to a real time measurement. Depending on what the convresion is, the resulting values can vary. This is done to make the computations between pixel size and real-life size to be much simpler. An exmaple is that if each pixel on screen represents a foot in a water enviornment, then one would set the conversions below to that.
+This code takes in a pixel and converts it to a real-time measurement. Depending on what the conversion is, the resulting values can vary. This is done to make the computations between pixel size and real-life size to be much simpler. An example is that if each pixel on the screen represents a foot in a water environment, then one would set the conversions below to that.
 
 ```bash
 for i in diameters:
@@ -48,14 +48,14 @@ As seen above, the factor that is multiplied by i will be the conversion factor.
 
 # main.py
 
-The main.py file focuses on plotting the 16, 50, and 84th percentile values for the diameters in the imaging data. This allows us to see trends within the data, which can furthermore lead to conclusions being made regarding the occurence of flocculation. The code below shows that there is some repititon from the code in table_creator.py as they both plot the diameters of the imaging data; with that in mind though, this will take a step further and plot the 16 and 84th percentile values of the distribution.
+The main.py file focuses on plotting the 16, 50, and 84th percentile values for the diameters in the imaging data. This allows us to see trends within the data, which can furthermore lead to conclusions being made regarding the occurrence of flocculation. The code below shows that there is some repetition from the code in table_creator.py as they both plot the diameters of the imaging data; with that in mind though, this will take a step further and plot the 16 and 84th percentile values of the distribution.
 
 ```bash
 samples_84th_percent.append(np.quantile(lister, 0.84))
 samples_16th_percent.append(np.quantile(lister, 0.16))
 ```
 
-This file also calculates the number of particles that is present in each frame. This can potentially suggest flocculation as if the number of particles are decreasing, then that means they are combining into each other, which suggest flocculation. The code below shows a snippet where the number of particles are claculated and plotted.
+This file also calculates the number of particles that is present in each frame. This can potentially suggest flocculation as if the number of particles is decreasing, then that means they are combining into each other, which suggests flocculation. The code below shows a snippet where the number of particles is calculated and plotted.
 
 ```bash
 for i in imgNum:
@@ -75,7 +75,7 @@ for i in range(len(imgNumPlt)):
 ```
 Below is the code that plots the frame by the diameter of the flocs. When using the Keyvani and Strom (2013) workflow, one will receive a CSV file that has the diameters of every particle tracked in the binarized images. This code will take that CSV and find the median diameter per frame. **THIS IS IN THE MAIN.PY FILE.**
 
-This code snippet helps to get the number of frames there are in the csv file.
+This code snippet helps to get the number of frames there are in the CSV file.
 ```bash
 for i in range(len(imgNum)):
     if imgNum[i] not in imgNumPlt:
@@ -162,7 +162,7 @@ for i in range(3): #this is to get lists of the different vol_fracs
         table_counter += 1
 ```
 
-Find the combined GSD value for all of the sediments in the orignal GSD is a vlue of interest as this helps to give insight into flocculation. Below is the code on how using the volume fractions for each of the original sediment types and the information from the table can lead to this.
+Finding the combined GSD value for all of the sediments in the original GSD is a value of interest as this helps to give insight into flocculation. Below is the code on how using the volume fractions for each of the original sediment types and the information from the table can lead to this.
 
 ```bash
 x_axis = np.arange(num_of_sediments)
@@ -254,7 +254,7 @@ size_data = len(diameters)
 np_diameters = np.array(diameters)
 for i in diameters:
     temp = np_diameters[np_diameters <= i]
-    # fraction of that value with respect to the size of the x_values
+    # fraction of that value concerning the size of the x_values
     value = temp.size / size_data
     # pushing the value in the y_values
     if value not in CDF_for_PSD:
@@ -280,7 +280,7 @@ Results of the CDF plotted between the PSD and the GSD.
 
 ![CDF](https://github.com/bayush11/Caltech_SURF_2023/assets/70395352/6418c8b2-ee1e-4351-a011-ab2019e0600e)
 
-Below is a line of code used to gain information regarding the PSD. You will find the PSD plotted in a histogram while the GSD is in a line graph. That is because the PSD data is finite, so the information must be represented in a finite way.
+Below is a line of code used to gain information regarding the PSD. You will find the PSD plotted in a histogram while the GSD is in a line graph. That is because the PSD data is finite, so the information must be represented finitely.
 
 ```bash
 (n, bins, patches) = plt.hist(medians_sample_1, density = True, bins= 15, label='PSD') #used to get info about PSD
@@ -323,9 +323,9 @@ Conducting statistical tests allows us to gather information that can indirectly
 
 # frame_extractor.py 
 
-I will brefily go over the frame_extractor.py file and discuss what is the point of this file.
+I will briefly go over the frame_extractor.py file and discuss what is the point of this file.
 
-This file is used to take in a given video and to convert it to a time-series of images. The factor that you can change is the nth frame you would like to pick up.
+This file is used to take in a given video and to convert it to a time series of images. The factor that you can change is the nth frame you would like to pick up.
 
 ```bash
 counter = 10 #captures every nth image
@@ -333,7 +333,7 @@ counter = 10 #captures every nth image
 
 Using this, you can extract every 10th frame in a video and create a time series from it.
 
-The code below shows an example of a statistical test being done and the results being printed to the screen.
+The code below shows an example of a statistical test being done and the results being printed on the screen.
 
 ```bash
 print(ks_2samp(medians_sample_1, y_axis_GSD))
@@ -360,7 +360,7 @@ All of these videos have links to GitHub that need to be accessed to complete th
 
 **IMPORTANT**: Before you begin this process, consult the subsection labeled "Tips" as this can save you a lot of time on small tasks related to creating your model.
 
-There are two large steps that are required in creating a proper machine-learning model to track particles. The **first** step is to develop your model by creating labels from images (1) and then using those labels for training your machine-learning model (2). This step is necessary as this will allow you to develop the model that will be used for detecting and tracking future objects. The **second** step in the process is to use this trained model to detect (3) and track objects(4).
+Two large steps are required in creating a proper machine-learning model to track particles. The **first** step is to develop your model by creating labels from images (1) and then using those labels for training your machine-learning model (2). This step is necessary as this will allow you to develop the model that will be used for detecting and tracking future objects. The **second** step in the process is to use this trained model to detect (3) and track objects(4).
 
 The numbers inside of the parenthesis represent the step down below that will go deeper into how to complete this.
 
@@ -369,7 +369,7 @@ I will cover a high-level step-by-step process on how to complete these two step
 # Step 1: Developing Labels 
 
 **Label Format: YOLOV4**
-**Enviornment: Terminal + Python**
+**Environment: Terminal + Python**
 
 Let's dive into how to first get your labeled images. This is important as in computer vision, the main goal that you want is for the computer to be able to recognize shapes and objects on a screen. With that in mind though, how can a computer even being to understand this? The answer is through labeled images. I have provided an example of an image, and then a image with a label to help give some context. **PUT AN IMAGE BELOW**
 
@@ -383,14 +383,14 @@ I want to quickly discuss the labels themselves. Each label represents the bound
 
 These labels are stored in a txt with each txt being filled with all of the labels for every object within an image. So for example, an image with 8 bounding boxes will have 8 labels and 8 lines in the txt. 
 
-In the PARTICLE_DETECTOR files seen, I typcially have 15 images for training and 3 images for testing. This is a very low amount a good number to reference is 1500 images for training and 300 images for testing. This also means that there will be 1500 labels in training and 300 labels in testing.
+In the PARTICLE_DETECTOR files seen, I typically have 15 images for training and 3 images for testing. This is a very low amount a good number to reference is 1500 images for training and 300 images for testing. This also means that there will be 1500 labels in training and 300 labels in testing.
 
-Here is a link to a github that will allow the process to automatically get labels from google much quicker: https://github.com/theAIGuysCode/OIDv4_ToolKit. Using this github in the video,
-you can gain many labels from using variations of the line:  python3 main.py downloader --classes Apple Orange --type_csv validation --multiclasses 1. After cloning the github and cd'ing into this repository, using that line you can download images from google. In the classes portion you specifiy what classes you want to download as well as where the images will go.
+Here is a link to a GitHub that will allow the process to automatically get labels from Google much quicker: https://github.com/theAIGuysCode/OIDv4_ToolKit. Using this Github in the video,
+you can gain many labels from using variations of the line:  python3 main.py downloader --classes Apple Orange --type_csv validation --multiclasses 1. After cloning the GitHub and cd'ing into this repository, using that line you can download images from Google. In the classes portion, you specify what classes you want to download as well as where the images will go.
 
 # Step 2: Training the Model
 
-**Enviornment: Google Collab**
+**Environment: Google Collab**
 
 Now that we have our labels and images in the correct format, it is time to train the machine-learning model. One quick note is that the way that the folder that contains your training data and the other folder that has your testing data should be set up in a way that each image should be next to its label. So an example is that for training data, the folder contents could go like this: img1.jpg, img1.txt, img2.jpg, img2.txt, etc. Both your training and testing folders will just have the images and their corresponding labels. More information can be found by referencing my obj and test folders in the repo.
 
@@ -406,7 +406,7 @@ Throughout the Google collab, you will be told how to get these resources and to
 
 # Step 3: Detecting Objects
 
-**Enviornment: Terminal**
+**Environment: Terminal**
 
 **NOTE**: This will involve using a TensorFlow training process which was different from the previous Cloud format of training. Additionally, all the training and testing will be done through a command prompt/terminal
 
@@ -430,7 +430,7 @@ If the output was not what you wanted, then potentially your model needs more tr
 
 # Step 4: Tracking Objects
 
-**Enviornment: Terminal**
+**Environment: Terminal**
 
 This step will be similar to the detecting objects step. There, however, are a few small differences and we will go over what they are.
 
@@ -448,20 +448,20 @@ After letting the model train for a few minutes, paste this command into the ter
 
 # Step 5: Getting the Settling Velocity
 
-In my specific application, I am tracking particles. After you have tracked the particles successfully, run the tracker again but instead, and the end of the line that is used to run the tracker, add a --info. The official command will look like this python object_tracker.py --video ./data/video/test.mp4 --output ./outputs/demo.avi --model yolov4 --info. Doing so will give you the xmin, ymin, xmax, ymax in parenthesis format for each object tracked per frame. After this information is seen, one can output this to a txt file and get the settling velocity of the particles by comparing the pixel displacement between particles and computing the velocity.
+In my specific application, I am tracking particles. After you have tracked the particles successfully, run the tracker again but instead, and the end of the line that is used to run the tracker, add a --info. The official command will look like this python object_tracker.py --video ./data/video/test.mp4 --output ./outputs/demo.avi --model yolov4 --info. Doing so will give you the xmin, ymin, xmax, and ymax in parenthesis format for each object tracked per frame. After this information is seen, one can output this to a txt file and get the settling velocity of the particles by comparing the pixel displacement between particles and computing the velocity.
 
 # Potential Ways to Improve Model 
 
 There are many ways that one can use to improve their model. They are listed below in rank of what I believe to be the most effective.
 
-1. The accuracy of your model is too low, so there needs to be more training and testing data. Without the proper amount, the model does no thave a lot to go off, making predictions mediocre at best.
-2. Making sure the labels are accurate as sometimes loose labels results in unconfident guesses at objects.
-3. Changing the width and height of your model as well as the batch/subdivisions to fit your data better.
+1. The accuracy of your model is too low, so there needs to be more training and testing data. Without the proper amount, the model does not have a lot to go off, making predictions mediocre at best.
+2. Make sure the labels are accurate as sometimes loose labels results in unconfident guesses at objects.
+3. Change the width and height of your model as well as the batch/subdivisions to fit your data better.
 4. The model being run is the wrong type of model and needs to be switched out.
 
 # PARTICLE_DETECTOR_XXX
 
-I will delve into the specifics of the PARTICLE_DETECTOR_XXX files. There should be three files that are in this repository that have the words PARTICLE_DETECTOR_XXX. The XXX represents different words but specifically it should vary from BINARY, GRADIENT, and ORIGINAL. I decided to include these three folders in this repository as seeing their structure will create a sense of structure when going through this tutorial and Google Colab. The file structure each have 7 files: generate_test.py, generate_train.py, obj.data, obj.names, obj.zip, test.zip, yolov4-obj.cfg. As discussed before, there will additionally be a backup folder that I did not add as the size is too large for github to contain. The only difference between these three folders are the images in the obj.zip and test.zip. The configuration file stays the same as we are training on the same type of data and the python + obj.data and names file are all the same as well as if you follow the instructions on the google colab, then this should stay consistent. Using the weights, however, you can test out the detection and tracking on different video and image data that relates to the type of model trained. 
+I will delve into the specifics of the PARTICLE_DETECTOR_XXX files. There should be three files that are in this repository that have the words PARTICLE_DETECTOR_XXX. The XXX represents different words but specifically, it should vary from BINARY, GRADIENT, and ORIGINAL. I decided to include these three folders in this repository as seeing their structure will create a sense of structure when going through this tutorial and Google Colab. The file structure each has 7 files: generate_test.py, generate_train.py, obj.data, obj.names, obj.zip, test.zip, yolov4-obj.cfg. As discussed before, there will additionally be a backup folder that I did not add as the size is too large for GitHub to contain. The only difference between these three folders is the images in the obj.zip and test.zip. The configuration file stays the same as we are training on the same type of data and the python + obj.data and names file are all the same as well as if you follow the instructions on the Google colab, then this should stay consistent. Using the weights, however, you can test out the detection and tracking on different video and image data that relate to the type of model trained. 
 
 # External Weights In Hard Drive
 
@@ -469,8 +469,8 @@ In this section, I will discuss the hard drives that contain the weights of the 
 
 # Tips
 
-This section will delve into some small steps that you can take that will allow you to reduce the total time taken in the process of creating the machine learniing model you desire.
+This section will delve into some small steps that you can take that will allow you to reduce the total time taken in the process of creating the machine learning model you desire.
 
-1. When running your training process in the cloud, make sure your image data is in jpg insetad of tif or other formats. I am not sure if other formats work but I know .tif doesnt work and .jpg does.
-2. When officially training your model, dont pause the training in Collab as this will a lot of times result in a GPU shortage, meaning that you cant train your model until the next day
+1. When running your training process in the cloud, make sure your image data is in jpg instead of tif or other formats. I am not sure if other formats work but I know .tif doesn't work and .jpg does.
+2. When officially training your model, don't pause the training in Collab as this will a lot of times result in a GPU shortage, meaning that you can't train your model until the next day
 3. Don't pay for the Collab premium; instead, just wait a day before Google Collab resets its GPU sources. 
