@@ -149,11 +149,11 @@ for i in diameters:
     # fraction of that value with respect to the size of the x_values
     value = temp.size / size_data
     # pushing the value in the y_values
-    if value not in CDF_for_PSD:
+    if value not in CDF_for_PSD: #finding the CDF for the PSD
         CDF_for_PSD.append(value) 
 ##################
 
-x_axis_1 = list(np.arange(len(CDF_for_PSD)))
+x_axis_1 = list(np.arange(len(CDF_for_PSD))) #plotting the CDF values for the GSD and the PSD.
 x_axis_2 = list(np.arange(len(CDF_for_GSD)))
 plt.plot(x_axis_1, CDF_for_PSD, label = "PSD")
 plt.plot(x_axis_2, CDF_for_GSD, label = "GSD")
@@ -186,7 +186,7 @@ for i in range(len(imgNum)):
         lister.append(diameters[i])
     else:
         lister.sort()
-        median_num = statistics.median(lister)
+        median_num = statistics.median(lister) #finding the PDF of the PSD.
         medians_sample_1.append(median_num)
         count2 += 1
         lister.clear()
@@ -213,13 +213,13 @@ curr_diameters = table['D Center'][:100]
 for i in range(len(curr_diameters)):
     if curr_diameters[i] >= min_diameter:
         y_axis_GSD.append(y_axis_combined_GSD[i])
-        x_axis_2.append(curr_diameters[i])
+        x_axis_2.append(curr_diameters[i]) #cutting off the values of the GSD less than the minimum PSD value as those values wont serve any help in seeing flocculation trends.
 
 sum = sum(y_axis_GSD)
 for i in range(len(y_axis_GSD)):
     y_axis_GSD[i] = y_axis_GSD[i] / sum
 
-plt.plot(x_axis_2, y_axis_GSD, label = "GSD")
+plt.plot(x_axis_2, y_axis_GSD, label = "GSD") #plotting the results.
 
 plt.legend(loc='upper right')
 plt.xscale("log")
