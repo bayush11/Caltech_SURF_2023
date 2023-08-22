@@ -54,7 +54,7 @@ for i in range(len(imgNum)):
         median_num = statistics.median(lister)
         medians_sample_1.append(median_num)
         #ADD 84th and 16th percentile values
-        samples_84th_percent.append(np.quantile(lister, 0.84))
+        samples_84th_percent.append(np.quantile(lister, 0.84)) #this is where you take the 84th and below the 16th percentile of the list of medians
         samples_16th_percent.append(np.quantile(lister, 0.16))
         ####################################
         count2 += 1
@@ -66,9 +66,11 @@ medians_sample_1.append(statistics.median(lister))
 samples_84th_percent.append(np.quantile(lister, 0.84))
 samples_16th_percent.append(np.quantile(lister, 0.16))
 
-imgNumPlt = np.arange(len(medians_sample_1))
+imgNumPlt = np.arange(len(medians_sample_1)) #Doing this will get you ready to plot the results of your calculations.
 
 #############################
+#Below is where you find the results of the different statistical tests to see 
+#the similarities in the particle size distribution and grain size distribution.
 #PLOTTING T TEST
 t_stat, p_value = ttest_ind(medians_sample_1, medians_sample_2)
 print("T-statistic value: ", t_stat)
@@ -91,7 +93,7 @@ for i in imgNum:
     if i not in list_of_elements:
         list_of_elements.append(i)
 for i in list_of_elements:
-    total_num_particles[i] = imgNum.count(i)
+    total_num_particles[i] = imgNum.count(i) #appending the numnber of particles to a list that stores this information.
 
 figure, axis = plt.subplots(2, 1)
 
@@ -100,12 +102,12 @@ for i in range(len(imgNumPlt)):
     imgNumPlt[i] *= 60 #60 FPS, converting to time
 
 axis[0].plot(imgNumPlt, total_num_particles.values())
-axis[0].set_title('Total Measured Particles and Median Size Particle per Image')
+axis[0].set_title('Total Measured Particles and Median Size Particle per Image') #plotting the results gotten above.
 #axis[0].set_xlabel('')
 axis[0].set_ylabel('Number of Particles')
 #axis[0].set_xscale("log")
 
-axis[1].plot(imgNumPlt, medians_sample_1)
+axis[1].plot(imgNumPlt, medians_sample_1) #this is additionally used to plot the median with the image frames recieved.
 #axis[1].set_title('Median')
 axis[1].set_xlabel('Time (seconds)')
 axis[1].set_ylabel('Diameter (um)')
@@ -117,7 +119,7 @@ plt.show()
 #PLOTTING THE 16TH, 50TH, AND 84TH PERCENTINE FOR DIAMETERS
 plt.plot(imgNumPlt, medians_sample_1, label = "50th Percentile")
 plt.plot(imgNumPlt, samples_16th_percent, label = "16th Percentile")
-plt.plot(imgNumPlt, samples_84th_percent, label = "84th Percentile")
+plt.plot(imgNumPlt, samples_84th_percent, label = "84th Percentile") #this adds in the 16th and 84th portions of the list of diameters.
 
 plt.title('Image Diameter Percentiles')
 plt.xlabel('Time (Seconds)')
