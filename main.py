@@ -1,3 +1,11 @@
+#This python file serves many purposes. The first one is that it's responsible for 
+#is that it computes different statistical tests to compare between the particle 
+#size distribution and the grain size distribution. These tests can give insight
+#into the degree of flocculation occuring. Furthermore, this file also plots the
+#median diameter of the flocs in each image frame but also makes sure to plot the
+#16th and 84th percentile in all of the image frames. This allows us to see the 
+#the difference in the upper and lower ends of the diameters in each image.
+#Finally, this file finds the number of particles per image and plots this.
 import math
 import pandas as pd
 import statistics
@@ -9,17 +17,19 @@ from scipy.stats import ks_2samp
 from statsmodels.stats.weightstats import ztest
 import csv
 import cv2
-print(cv2.__version__)
 #############################
 #GETTING GRAIN SIZES
 with open('Average_Grain_Size_Distributions.csv', newline='') as f:
   reader = csv.reader(f)
   row1 = next(reader)  # gets the first line
-medians_sample_2 = row1[9:]
+medians_sample_2 = row1[9:] #this is hardcoded to specifically get the distribution of grains in the excel file given.
 for i in range(len(medians_sample_2)):
     medians_sample_2[i] = float(medians_sample_2[i])
 
 #############################
+#The code below firstly gets the diameters from each frame of the flocs 
+#but also takes into account the 84thand 16th percentile per image for the 
+#floc diameter.
 df = pd.read_csv('results.csv')
 diameters = df.loc[:,"EquivDiameter"]
 diameters = [float(i) * 0.81 for i in diameters]
