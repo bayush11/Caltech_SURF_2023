@@ -333,20 +333,7 @@ counter = 10 #captures every nth image
 
 Using this, you can extract every 10th frame in a video and create a time series from it.
 
-# TODO
-
-5. explain the code better and make it more organized
-6. put comments at the top of each script to explain the script itself 
-7. put comments in the lines as well 
-1. add some google colab cells to the machine learning portion to explain the key points to use google colab and HOW to use google colab
-1. ake out any unnecessary code
-1. link the githubs and the google colab
-1. write documentation regarding the different detectors I have and what they essentially
-1. add documentation regarding the matlab parameters and discuss how I got the videos, how much of the video did you use and the sampling rate
-3. Make sure to input images when you are saying you will
-5. When talking about the labeling, you dont every discuss how YOU DID IT. TALK ABT THAT.
-6. Add the information regarding the hard drive
-7. Send excel sheet to Justin after completion
+The code below shows an example of a statistical test being done and the results being printed to the screen.
 
 ```bash
 print(ks_2samp(medians_sample_1, y_axis_GSD))
