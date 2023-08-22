@@ -396,6 +396,9 @@ These labels are stored in a txt with each txt being filled with all of the labe
 
 In the PARTICLE_DETECTOR files seen, I typcially have 15 images for training and 3 images for testing. This is a very low amount a good number to reference is 1500 images for training and 300 images for testing. This also means that there will be 1500 labels in training and 300 labels in testing.
 
+Here is a link to a github that will allow the process to automatically get labels from google much quicker: https://github.com/theAIGuysCode/OIDv4_ToolKit. Using this github in the video,
+you can gain many labels from using variations of the line:  python3 main.py downloader --classes Apple Orange --type_csv validation --multiclasses 1. After cloning the github and cd'ing into this repository, using that line you can download images from google. In the classes portion you specifiy what classes you want to download as well as where the images will go.
+
 # Step 2: Training the Model
 
 **Enviornment: Google Collab**
