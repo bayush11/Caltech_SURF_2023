@@ -19,7 +19,7 @@ Below are the different phases that the images have gone through in the Keyvani 
 
 # Frame_Extractor.py 
 
-I will quickly take some time to explain the frame_extractor.py file. This file will take a video you ahve and convert that into a time-series set of images. The time-series can vary in the size depending on what kind of factor you have it as. For example, if you set the n variable as 10, then the time-series will have every 10th image within the extracted images. If this is also one, then it will get every image.
+I will quickly take some time to explain the frame_extractor.py file. This file will take a video you have and convert that into a time-series set of images. The time-series can vary in the size depending on what kind of factor you have it as. For example, if you set the n variable as 10, then the time-series will have every 10th image within the extracted images. If this is also one, then it will get every image.
 
 ```bash
 if ret and counter == 0:
@@ -336,9 +336,7 @@ Using this, you can extract every 10th frame in a video and create a time series
 5. explain the code better and make it more organized
 6. put comments at the top of each script to explain the script itself 
 7. put comments in the lines as well 
-8. delete commeneted code
 1. add some google colab cells to the machine learning portion to explain the key points to use google colab and HOW to use google colab
-1. svae the weights in the external hard drive
 1. ake out any unnecessary code
 1. link the githubs and the google colab
 1. write documentation regarding the different detectors I have and what they essentially
