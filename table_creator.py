@@ -197,13 +197,6 @@ medians_sample_1.append(statistics.median(lister))
 
 ###############################
 (n, bins, patches) = plt.hist(medians_sample_1, density = True, bins= 15, label='PSD') #used to get info about PSD
-#plt.clf()
-
-# bin_width = bins[1] - bins[0]
-# total_num_particles = len(medians_sample_1)
-# PDF_PSD = []
-# for i in range(len(n)):
-#     PDF_PSD.append(n[i]/(total_num_particles * bin_width))
 
 #this is to find the cutoff version of the GSD data
 min_diameter = min(medians_sample_1)
